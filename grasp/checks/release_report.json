@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "scene": "raised-platform grasp (historical)",
   "observation_dim": 120,
   "tactile_regions": 17,
   "sensor_probe_passed": 17,

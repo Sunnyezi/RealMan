@@ -13,7 +13,7 @@ class GraspEnv(gym.Env):
  metadata={'render_modes':['rgb_array'],'render_fps':20}
  def __init__(self,randomize=False,publish=False,render_mode=None):
   self.m=mujoco.MjModel.from_xml_path(str(P/'scene.xml'));self.d=mujoco.MjData(self.m);self.ikd=mujoco.MjData(self.m)
-  self.cfg=json.load(open(P/'config.json'));self.randomize=randomize;self.publish=publish;self.render_mode=render_mode
+  self.cfg=json.load(open(P/'config.json'));self.randomize=randomize;self.publish=P/'live_state.npz' if publish is True else publish;self.render_mode=render_mode
   self.vision=RGBD(self.m);self.overview=None;self.planner=Planner(self.m,self.cfg)
   self.sensor_map=json.load(open(P/'sensor_map.json'));self.sensor_adrs=np.array([self.m.sensor_adr[mujoco.mj_name2id(self.m,mujoco.mjtObj.mjOBJ_SENSOR,r['sensor'])] for r in self.sensor_map]);self.touch_force=np.zeros(17);self.touch_flags=np.zeros(17)
   self.bid=mujoco.mj_name2id(self.m,mujoco.mjtObj.mjOBJ_BODY,'right_base_link');self.ob=mujoco.mj_name2id(self.m,mujoco.mjtObj.mjOBJ_BODY,'object');self.og=mujoco.mj_name2id(self.m,mujoco.mjtObj.mjOBJ_GEOM,'object_geom');self.oj=mujoco.mj_name2id(self.m,mujoco.mjtObj.mjOBJ_JOINT,'object_free');self.oa=self.m.jnt_qposadr[self.oj]
@@ -24,7 +24,7 @@ class GraspEnv(gym.Env):
   self.prev_action=np.zeros(9);self.next_vision=0;self.steps=0
  def _publish(self):
   if self.publish:
-   path=P/f'.live_{os.getpid()}.npz';np.savez(path,qpos=self.d.qpos,qvel=self.d.qvel,ctrl=self.d.ctrl,time=self.d.time,touch_force=self.touch_force,grasp_goal=self.grasp_goal,lift_goal=self.lift_goal);os.replace(path,P/'live_state.npz')
+   path=self.publish.with_name(f'.live_{os.getpid()}.npz');np.savez(path,qpos=self.d.qpos,qvel=self.d.qvel,ctrl=self.d.ctrl,time=self.d.time,touch_force=self.touch_force,grasp_goal=self.grasp_goal,lift_goal=self.lift_goal);os.replace(path,self.publish)
  def _vision(self,force=False):
   if force or self.d.time+1e-8>=self.next_vision:
    self.vision.update(self.d);self.next_vision=float(self.d.time)+.1
@@ -42,6 +42,9 @@ class GraspEnv(gym.Env):
   self.hand_target=self.hand_target.copy();self.q_target=np.array(self.cfg['home_q']);self.prev_action=np.zeros(9)
   offset=self.np_random.uniform(-self.cfg['random_radius'],self.cfg['random_radius'],2) if self.randomize else np.zeros(2)
   self.d.qpos[self.oa:self.oa+3]=np.array(self.cfg['object_xyz'])+np.r_[offset,0.]
+  if options and 'object_yaw_rad' in options:
+   yaw = options['object_yaw_rad']
+   self.d.qpos[self.oa+3:self.oa+7] = [np.cos(yaw/2),0,0,np.sin(yaw/2)]
   for _ in range(100):mujoco.mj_step(self.m,self.d)
   self.d.time=0.;self.steps=0;self.hold=0.;self.ik_failures=0;self.lost=0;self.max_height=0.;self.ever_lifted=False
   self.z0=float(self.d.xpos[self.ob,2]);self.vision.last[:]=0;self.vision.last_seen=-10.;self.next_vision=0;self._vision(True)

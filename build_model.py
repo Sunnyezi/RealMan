@@ -3,6 +3,7 @@ import xml.etree.ElementTree as E
 import shutil,json
 import mujoco,numpy as np
 P=Path(__file__).resolve().parent
+LIMITS=json.loads((P/'physical_limits.json').read_text())
 (P/'models/meshes').mkdir(parents=True,exist_ok=True)
 a=E.parse(P/'sources/arm/urdf/RM65-6FB-V.urdf').getroot()
 h=E.parse(P/'sources/hand/FTP_right_hand.urdf').getroot()
@@ -46,7 +47,9 @@ for joint in a.findall('joint'):
  name=joint.get('name')
  if joint.get('type') not in ('revolute','continuous','prismatic') or name in mimic: continue
  lim=joint.find('limit'); lo=lim.get('lower','-3.14'); hi=lim.get('upper','3.14'); hand=name.startswith('right_')
- E.SubElement(act,'position',name=name+'_position',joint=name,kp='15' if hand else '250',kv='1' if hand else '25',ctrlrange=lo+' '+hi,forcerange='-3 3' if hand else '-80 80')
+ torque = LIMITS['hand']['simulation_torque_cap_Nm'] if hand else LIMITS['arm']['joint_torque_limit_Nm'].get(name,80.)
+ # Camera servo remains a synthetic holding actuator, not a calibrated motor.
+ E.SubElement(act,'position',name=name+'_position',joint=name,kp='15' if hand else '250',kv='1' if hand else '25',ctrlrange=lo+' '+hi,forcerange=f'{-torque:g} {torque:g}')
  names.append(name)
 E.indent(r); E.ElementTree(r).write(P/'models/scene.xml')
 m=mujoco.MjModel.from_xml_path(str(P/'models/scene.xml')); d=mujoco.MjData(m)

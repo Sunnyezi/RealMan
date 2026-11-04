@@ -284,18 +284,18 @@
   </equality>
 
   <actuator>
-    <general name="joint_1_position" joint="joint_1" ctrlrange="-3.106 3.106" forcerange="-80 80" input="pos" biastype="affine" gainprm="250" biasprm="0 -250 -25"/>
-    <general name="joint_2_position" joint="joint_2" ctrlrange="-2.2689 2.2689" forcerange="-80 80" input="pos" biastype="affine" gainprm="250" biasprm="0 -250 -25"/>
-    <general name="joint_3_position" joint="joint_3" ctrlrange="-2.356 2.356" forcerange="-80 80" input="pos" biastype="affine" gainprm="250" biasprm="0 -250 -25"/>
-    <general name="joint_4_position" joint="joint_4" ctrlrange="-3.106 3.106" forcerange="-80 80" input="pos" biastype="affine" gainprm="250" biasprm="0 -250 -25"/>
-    <general name="joint_5_position" joint="joint_5" ctrlrange="-2.234 2.234" forcerange="-80 80" input="pos" biastype="affine" gainprm="250" biasprm="0 -250 -25"/>
-    <general name="joint_6_position" joint="joint_6" ctrlrange="-6.28 6.28" forcerange="-80 80" input="pos" biastype="affine" gainprm="250" biasprm="0 -250 -25"/>
+    <general name="joint_1_position" joint="joint_1" ctrlrange="-3.106 3.106" forcerange="-60 60" input="pos" biastype="affine" gainprm="250" biasprm="0 -250 -25" forcelimited="true"/>
+    <general name="joint_2_position" joint="joint_2" ctrlrange="-2.2689 2.2689" forcerange="-60 60" input="pos" biastype="affine" gainprm="250" biasprm="0 -250 -25" forcelimited="true"/>
+    <general name="joint_3_position" joint="joint_3" ctrlrange="-2.356 2.356" forcerange="-30 30" input="pos" biastype="affine" gainprm="250" biasprm="0 -250 -25" forcelimited="true"/>
+    <general name="joint_4_position" joint="joint_4" ctrlrange="-3.106 3.106" forcerange="-10 10" input="pos" biastype="affine" gainprm="250" biasprm="0 -250 -25" forcelimited="true"/>
+    <general name="joint_5_position" joint="joint_5" ctrlrange="-2.234 2.234" forcerange="-10 10" input="pos" biastype="affine" gainprm="250" biasprm="0 -250 -25" forcelimited="true"/>
+    <general name="joint_6_position" joint="joint_6" ctrlrange="-6.28 6.28" forcerange="-10 10" input="pos" biastype="affine" gainprm="250" biasprm="0 -250 -25" forcelimited="true"/>
     <general name="camera_rojoint_position" joint="camera_rojoint" ctrlrange="0 1.05" forcerange="-80 80" input="pos" biastype="affine" gainprm="250" biasprm="0 -250 -25"/>
-    <general name="right_thumb_1_joint_position" joint="right_thumb_1_joint" ctrlrange="0 1.1641" forcerange="-3 3" input="pos" biastype="affine" gainprm="15" biasprm="0 -15 -1"/>
-    <general name="right_thumb_2_joint_position" joint="right_thumb_2_joint" ctrlrange="0 0.5864" forcerange="-3 3" input="pos" biastype="affine" gainprm="15" biasprm="0 -15 -1"/>
-    <general name="right_index_1_joint_position" joint="right_index_1_joint" ctrlrange="0 1.4381" forcerange="-3 3" input="pos" biastype="affine" gainprm="15" biasprm="0 -15 -1"/>
-    <general name="right_middle_1_joint_position" joint="right_middle_1_joint" ctrlrange="0 1.4381" forcerange="-3 3" input="pos" biastype="affine" gainprm="15" biasprm="0 -15 -1"/>
-    <general name="right_ring_1_joint_position" joint="right_ring_1_joint" ctrlrange="0 1.4381" forcerange="-3 3" input="pos" biastype="affine" gainprm="15" biasprm="0 -15 -1"/>
-    <general name="right_little_1_joint_position" joint="right_little_1_joint" ctrlrange="0 1.4381" forcerange="-3 3" input="pos" biastype="affine" gainprm="15" biasprm="0 -15 -1"/>
+    <general name="right_thumb_1_joint_position" joint="right_thumb_1_joint" ctrlrange="0 1.1641" forcerange="-1.5 1.5" input="pos" biastype="affine" gainprm="15" biasprm="0 -15 -1" forcelimited="true"/>
+    <general name="right_thumb_2_joint_position" joint="right_thumb_2_joint" ctrlrange="0 0.5864" forcerange="-1.5 1.5" input="pos" biastype="affine" gainprm="15" biasprm="0 -15 -1" forcelimited="true"/>
+    <general name="right_index_1_joint_position" joint="right_index_1_joint" ctrlrange="0 1.4381" forcerange="-1.5 1.5" input="pos" biastype="affine" gainprm="15" biasprm="0 -15 -1" forcelimited="true"/>
+    <general name="right_middle_1_joint_position" joint="right_middle_1_joint" ctrlrange="0 1.4381" forcerange="-1.5 1.5" input="pos" biastype="affine" gainprm="15" biasprm="0 -15 -1" forcelimited="true"/>
+    <general name="right_ring_1_joint_position" joint="right_ring_1_joint" ctrlrange="0 1.4381" forcerange="-1.5 1.5" input="pos" biastype="affine" gainprm="15" biasprm="0 -15 -1" forcelimited="true"/>
+    <general name="right_little_1_joint_position" joint="right_little_1_joint" ctrlrange="0 1.4381" forcerange="-1.5 1.5" input="pos" biastype="affine" gainprm="15" biasprm="0 -15 -1" forcelimited="true"/>
   </actuator>
 </mujoco>

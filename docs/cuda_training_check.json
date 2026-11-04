@@ -1,0 +1,16 @@
+{
+  "compute": {
+    "device": "cuda:0",
+    "torch": "2.14.1+cu130",
+    "cuda_runtime": "13.0",
+    "gpu": "NVIDIA GeForce RTX 4090"
+  },
+  "cuda_parameters": true,
+  "cuda_optimizer": true,
+  "cpu_inference_parity": true,
+  "fail_fast": true,
+  "warmstart_gradient_update": true,
+  "checkpoint_resume_steps": 32,
+  "initial_timesteps": 1024,
+  "final_timesteps": 1056
+}

@@ -1,0 +1,57 @@
+{
+  "arm": {
+    "source": "https://github.com/RealManRobot/rm_models/blob/main/RM65/urdf/RM65-6F/urdf/RM65-6F.urdf",
+    "git_blob_sha": "d83ebf22a2957a30bc0594d637d9b6eaaf880d72",
+    "sha256": "8313a3133a88961c628ed65412223129cd45024a409fbb2727b4fcfbc715c468",
+    "evidence": "Official URDF effort; matches installed RM65-6FB-V. Rated/peak and motor-shaft torque are not specified.",
+    "joint_torque_limit_Nm": {
+      "joint_1": 60.0,
+      "joint_2": 60.0,
+      "joint_3": 30.0,
+      "joint_4": 10.0,
+      "joint_5": 10.0,
+      "joint_6": 10.0
+    }
+  },
+  "hand": {
+    "source": "https://www.inspire-robots.com/d/file/p/2025/01-16/因时机器人灵巧手--触觉手用户手册V1.0.0cn.pdf",
+    "manual_sha256": "a4aff1857c9196ebfe46bd0578e4e6314019bb91cb05505785317ef3f0bb24b7",
+    "sections": [
+      "2.6.9",
+      "2.6.12",
+      "2.6.16",
+      "2.6.17"
+    ],
+    "register_order": [
+      "little",
+      "ring",
+      "middle",
+      "index",
+      "thumb_flexion",
+      "thumb_rotation"
+    ],
+    "force_set_address": 1498,
+    "force_set_range_gf": [
+      0,
+      3000
+    ],
+    "gf_to_N": 0.00980665,
+    "force_set_range_N": [
+      0,
+      29.41995
+    ],
+    "force_act_range_gf": [
+      -4000,
+      4000
+    ],
+    "current_readback_range_mA": [
+      0,
+      2000
+    ],
+    "joint_torque_limit_Nm": null,
+    "simulation_torque_cap_Nm": 1.5,
+    "status": "UNCALIBRATED simulation cap retained; not official joint torque",
+    "missing": "Transmission geometry/Jacobian, pose-dependent fingertip lever arm, motor torque constant, reduction and efficiency. Readback ranges are not physical peak limits.",
+    "force_semantics": "Fingertip-equivalent force threshold; contact elsewhere changes force with lever arm. Native touch sensor sums are not FORCE_ACT."
+  }
+}

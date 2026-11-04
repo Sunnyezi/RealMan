@@ -5,21 +5,23 @@ from pathlib import Path
 import numpy as np,torch
 from stable_baselines3 import PPO
 from stable_baselines3.common.vec_env import DummyVecEnv,VecNormalize
+from compute import resolve_device
 from env import GraspEnv,P
 from train import fingerprint
 
 def main():
- p=argparse.ArgumentParser();p.add_argument('checkpoint',type=Path);p.add_argument('--output',type=Path);p.add_argument('--loop',action='store_true');p.add_argument('--episodes',type=int,default=100);p.add_argument('--seed',type=int,default=10000);p.add_argument('--viewer',action='store_true');p.add_argument('--randomize',action='store_true');args=p.parse_args()
+ p=argparse.ArgumentParser();p.add_argument('--device',default='cpu',help='Policy inference device, e.g. cuda:0 or cpu');p.add_argument('checkpoint',type=Path);p.add_argument('--output',type=Path);p.add_argument('--loop',action='store_true');p.add_argument('--episodes',type=int,default=100);p.add_argument('--seed',type=int,default=10000);p.add_argument('--viewer',action='store_true');p.add_argument('--randomize',action='store_true');args=p.parse_args()
+ device=resolve_device(args.device)
  if args.loop:
   from play import play
-  play(args.checkpoint,args.randomize,args.seed);return
+  play(args.checkpoint,args.randomize,args.seed,device=device);return
  if args.episodes<=0:raise SystemExit('episodes must be positive')
  run=args.checkpoint.parent;meta=json.load(open(run/'run.json'))
  if meta['fingerprint']!=fingerprint():raise SystemExit('Environment differs from the trained environment')
  torch.set_num_threads(1);e=GraspEnv(randomize=args.randomize,publish=args.viewer);base=DummyVecEnv([lambda:e]);norm=args.checkpoint.with_name(args.checkpoint.stem+'_vecnormalize.pkl')
  if not norm.exists() and args.checkpoint.stem.startswith('checkpoint_'):norm=args.checkpoint.with_name(args.checkpoint.stem.replace('checkpoint_','checkpoint_vecnormalize_',1)+'.pkl')
  if not norm.exists():norm=run/'vecnormalize.pkl'
- env=VecNormalize.load(str(norm),base);env.training=False;env.norm_reward=False;model=PPO.load(str(args.checkpoint),device='cpu');results=[]
+ env=VecNormalize.load(str(norm),base);env.training=False;env.norm_reward=False;model=PPO.load(str(args.checkpoint),device=device);results=[]
  try:
   for k in range(args.episodes):
    obs,_=e.reset(seed=args.seed+k);done=False;total=0;info={}

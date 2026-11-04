@@ -1,6 +1,6 @@
 # 抓取模型：触觉输入与视觉目标修正
 
-服务器目录：`/home/szy2025/Desktop/RealMan/grasp`。Conda 环境：`realman-mujoco`。仓库仅保留当前训练管线；旧版训练管线及其模型权重已移除。
+服务器目录：`/home/szy2025/Desktop/RealMan/grasp`。Conda 环境：`realman-mujoco`。机械臂底座和方块由同一个地面平面支撑，地面高度为 `z = 0`。
 
 ## 已完成的修改
 
@@ -8,8 +8,8 @@
 - 使用对应部件网格边界确定区域位置。碰撞接触面采用 1.5 mm 厚的近似接触层，避免骨架碰撞体遮挡触觉区域。每路输出区域总法向接触力，单位 N；它不是硬件压力阵列的完整输出，也不是六路执行器内置力传感器的标定模型。
 - 在 25 个物理子步内平均力读数，再进行低通滤波。策略输入增加 17 路归一化力、17 路接触标志；阈值为 0.02 N。
 - 抓取目标根据 RGB-D 估计加上已标定的手掌偏置生成。接近阶段更新目标，闭手后锁定抓取参考，防止追逐被夹住的物体。抬升参考也由该视觉目标生成。
-- 规划器采样检查接近、抓取、抬升三个阶段共 15 个姿态，检查 IK、关节范围、几何余量和机械臂与桌面碰撞。动作超过任务边界时进行截断，必要时回退步长；拒绝动作与投影分别计数并进入奖励惩罚。
-- 方块标称中心从 X=0.60 m 移至 X=0.51 m，为完整抬升留出余量。随机范围仍为 XY 各 ±5 cm。机器人和手的原始模型、安装连接保持不变。
+- 规划器采样检查接近、抓取、抬升三个阶段共 15 个姿态，检查 IK、关节范围、几何余量和机械臂与地面碰撞。动作超过任务边界时进行截断，必要时回退步长；拒绝动作与投影分别计数并进入奖励惩罚。
+- 方块边长 4 cm，初始中心为 `(0.565, 0, 0.021) m`，仿真启动后落到地面。随机摆放范围为 XY 各 ±5 cm。抓取姿态和相机朝向按新高度重新计算。
 
 ## 输入与兼容性
 
@@ -24,39 +24,34 @@
 | 116–118 | 视觉抬升目标相对末端的误差 |
 | 119 | 规划有效标志 |
 
-通道与部件映射：`sensor_map.json`。输入布局：`observation_layout.json`。旧版 79 维模型不能直接加载到新版环境，需使用 当前版本的权重。
+通道与部件映射见 `sensor_map.json`，输入布局见 `observation_layout.json`。
 
-## 实际验证
+## 验证和历史权重
 
-- 独立小球逐区探测：17/17 个区域均有读数；无接触时为零。
-- 随机位置视觉脚本：20/20 成功，抬升约 10.9–11.4 cm，并保持 2 秒；IK 拒绝为零。
-- 四个随机范围角点的完整轨迹均通过，最小几何余量约 8.6 mm。
-- 新版神经网络最佳策略：独立种子 10000–10099，随机位置评估 **91/100 成功**。IK 求解失败和候选 IK 拒绝均为零。
-- 动作安全投影在 100 个回合中均有触发。因此，不能将零 IK 失败理解为策略已完全学会停止多余运动。
-- 本次随机分布中心比旧版移近基座 9 cm，因此 91% 与旧版 4% 不是在完全相同的绝对物体位置分布下测得。
-
-已完成随机示范预热与 1,024 步 PPO 短训。当前部署的是独立验证保留下来的最佳权重；该权重来自 PPO 更新前的预热模型，记录在 `best_policy_metrics.json` 的 `timesteps: 0`。PPO 更新后的最终权重另外保存在 `policy.zip`。91% 是最佳权重的结果，不能归因于 PPO 更新或触觉输入的单独贡献。
+平面场景的传感器探测和脚本抓取结果见 `checks/sensor_probe.json` 和 `checks/gate.json`。原平台场景的权重和 91/100 抓取结果保存在 `runs/visual_touch/`，对应报告为 `checks/release_report.json`。训练和评估入口会校验场景指纹，地面场景需要重新训练后产生的权重。
 
 ## 使用命令
 
 从仓库根目录运行以下命令。
 
 ```bash
-cd grasp
+# 检查环境、传感器和随机抓取
+bash grasp/grasp.sh check
 
-# 重新验证环境、传感器和随机脚本
-bash grasp.sh check
+# 在服务器 VNC 桌面打开 Viewer
+bash grasp/grasp.sh live
 
-# 新版最佳策略 100 回合随机评估
-bash grasp.sh eval runs/visual_touch/best_policy.zip --randomize --episodes 100 --seed 10000
+# 在另一个终端向 Viewer 推送循环抓取画面
+bash grasp/grasp.sh demo
 
-# 在已打开的 VNC 窗口中循环运行新版随机策略
-bash grasp.sh eval runs/visual_touch/best_policy.zip --randomize --viewer --loop
-
-# 后续训练入口
-bash grasp.sh train --randomize --warmstart --steps 300000 --envs 4 --run runs/next
+# 训练地面场景的策略
+bash grasp/grasp.sh train --randomize --warmstart --steps 300000 --envs 4 --run runs/floor
 ```
 
-当前 VNC 桌面仍为 `:15`，本机连接 `127.0.0.1:15900`。窗口中 17 个区域以绿色到红色显示接触力变化，文字显示活跃区域数量。循环策略推理与神经网络训练是不同进程；目前训练已结束，窗口运行推理。
+服务器 VNC 桌面为 `:15`，SSH 转发后可连接本机 `127.0.0.1:15900`。窗口以绿色到红色表示各触觉区域的接触力，文字显示当前有读数的区域数量。
 
-报告：`checks/release_report.json`、`checks/gate.json`、`checks/sensor_probe.json`、`runs/visual_touch/evaluation_random.json`。
+基线试训、独立评估和真机录制回放见 [平地抓取训练和真机验证](SIM2REAL.zh-CN.md)。
+
+## GPU训练
+
+训练默认使用 `cuda:0`，预训练和PPO共用GPU设备；CUDA不可用会报错。安装、续训及VNC回放命令见 [GPU训练说明](GPU.zh-CN.md)。物理限制与未标定项见 [力矩核对](../docs/physical_limits.zh-CN.md)。

@@ -1,16 +1,16 @@
 from pathlib import Path
 import numpy as np,torch,json,copy
-from env import GraspEnv,P
+from domain import make_env
 from scripted import action
 
-def warmstart(model,vecenv,run,episodes=8):
+def warmstart(model,vecenv,run,seed,publish=False,episodes=8,profile=None):
  optimizer=torch.optim.Adam(model.policy.parameters(),lr=3e-4,eps=1e-5)
- e=GraspEnv(randomize=True,publish=True);xs=[];ys=[];reports=[];best=None;best_score=-1;rng=np.random.default_rng(77)
+ e=make_env(profile,randomize=True,publish=publish);xs=[];ys=[];reports=[];best=None;best_score=-1;rng=np.random.default_rng(seed)
  try:
   for round in range(4):
    successes=0
    for k in range(episodes):
-    obs,_=e.reset(seed=500+round*episodes+k)
+    obs,_=e.reset(seed=100000+seed*1000+round*episodes+k)
     for _ in range(e.cfg['horizon']):
      expert=action(e);xs.append(obs.copy());ys.append(expert.copy())
      if round==0 or (round==1 and rng.random()<.5):a=expert
@@ -25,7 +25,7 @@ def warmstart(model,vecenv,run,episodes=8):
     vecenv.obs_rms.update(x);vecenv.obs_rms.var=np.maximum(vecenv.obs_rms.var,.0025)
    xt=torch.as_tensor(vecenv.normalize_obs(x),device=model.device);yt=torch.as_tensor(y,device=model.device)
    for i in range(4500):
-    ids=rng.integers(0,len(x),256);mean=model.policy.get_distribution(xt[ids]).distribution.mean;loss=((mean-yt[ids])**2).mean()
+    ids=torch.randint(len(x),(256,),device=model.device);mean=model.policy.get_distribution(xt[ids]).distribution.mean;loss=((mean-yt[ids])**2).mean()
     optimizer.zero_grad();loss.backward();torch.nn.utils.clip_grad_norm_(model.policy.parameters(),.5);optimizer.step()
    report=dict(round=round,successes=successes,episodes=episodes,samples=len(x),mse=float(loss.detach()));reports.append(report);print('Warmstart:',report,flush=True)
  finally:e.close()

@@ -18,7 +18,7 @@ class Planner:
     q=solve(self.m,self.d,xyz,R,q);self.d.qpos[:6]=q;mujoco.mj_forward(self.m,self.d)
     for c in self.d.contact:
      kinds={int(self.m.geom_contype[c.geom1]),int(self.m.geom_contype[c.geom2])}
-     if kinds=={4,8} and c.dist<-.0005:raise ValueError('Arm/table collision along planned path')
+     if kinds=={4,8} and c.dist<-.0005:raise ValueError('Arm/support-surface collision along planned path')
     waypoints.append(dict(xyz=xyz.tolist(),q=q.tolist()))
    prev=endpoint
   return dict(grasp=grasp,lift=lift,pre=pre,minimum_margin=minimum,waypoints=waypoints)

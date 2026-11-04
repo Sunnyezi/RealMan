@@ -1,4 +1,4 @@
-<mujoco model="RGB-D grasp training">
+<mujoco model="RGB-D floor grasp">
   <compiler angle="radian" meshdir="../models/meshes" />
   <option integrator="implicitfast" timestep="0.002" />
   <default>
@@ -46,7 +46,7 @@
     <mesh name="hand_right_little_force_sensor_1" content_type="model/stl" file="hand_right_little_force_sensor_1.STL" />
   </asset>
   <worldbody>
-    <geom name="floor" size="2 2 0.1" type="plane" rgba="0.22 0.25 0.3 1" contype="4" conaffinity="11" />
+    <geom name="floor" size="2 2 0.1" type="plane" rgba="0.22 0.25 0.3 1" contype="4" conaffinity="11" friction="0.9 0.01 0.001" />
     <light pos="0 -2 3" diffuse="0.8 0.8 0.8" />
     <body name="base_link">
       <inertial pos="-0.00049987 -5.2709e-05 0.060019" quat="0.996756 0.0010166 -0.0229987 -0.0771247" mass="1.862" diaginertia="0.00172544 0.00170461 0.000899831" />
@@ -82,7 +82,7 @@
                     <body name="camera_link" pos="0.029031 -0.10022 -0.0005" quat="0.707105 0 0.707108 0">
                       <inertial pos="-0.009 -1.1052e-09 -0.011436" quat="0.499992 0.500008 -0.499992 0.500008" mass="0.03915" diaginertia="1.1014e-05 7.2029e-06 7.199e-06" />
                       <geom quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.79216 0.81961 0.93333 1" density="0" mesh="arm_camera_link" />
-                      <camera name="rgbd" pos="0 0 0" fovy="65" xyaxes="-0.18323642660913977 0.8602639407880192 -0.4757839469164366 0.8198557656810187 0.4007847535732766 0.40891087633224005" />
+                      <camera name="rgbd" pos="0 0 0" fovy="65" xyaxes="-0.18323642660914707 0.8602639407879944 -0.4757839469164762 0.8209371131724243 0.40015478539222366 0.40735537794882404" />
                     </body>
                   </body>
                   <body name="right_base_link">
@@ -277,8 +277,7 @@
         <geom quat="1 0 0 0" type="mesh" contype="8" conaffinity="5" group="3" rgba="1 1 1 1" density="0" mesh="arm_link_1" name="link_1_collision" />
       </body>
     </body>
-    <geom name="table" type="box" pos="0.55 0 0.255" size="0.25 0.25 0.025" rgba="0.35 0.3 0.25 1" contype="4" conaffinity="11" friction="0.9 0.01 0.001" />
-    <body name="object" pos="0.51 0 0.301">
+    <body name="object" pos="0.565 0 0.021">
       <freejoint name="object_free" />
       <geom name="object_geom" type="box" size="0.02 0.02 0.02" mass="0.05" rgba="0.05 0.1 0.95 1" contype="1" conaffinity="14" friction="1.2 0.01 0.001" condim="4" />
     </body>
@@ -299,19 +298,19 @@
     <joint joint1="right_little_2_joint" joint2="right_little_1_joint" polycoef="0 1.0843 0 0 0" solref="0.01" />
   </equality>
   <actuator>
-    <general name="joint_1_position" joint="joint_1" ctrlrange="-3.106 3.106" forcerange="-80 80" input="pos" biastype="affine" gainprm="650" biasprm="0 -650 -45" />
-    <general name="joint_2_position" joint="joint_2" ctrlrange="-2.2689 2.2689" forcerange="-80 80" input="pos" biastype="affine" gainprm="650" biasprm="0 -650 -45" />
-    <general name="joint_3_position" joint="joint_3" ctrlrange="-2.356 2.356" forcerange="-80 80" input="pos" biastype="affine" gainprm="650" biasprm="0 -650 -45" />
-    <general name="joint_4_position" joint="joint_4" ctrlrange="-3.106 3.106" forcerange="-80 80" input="pos" biastype="affine" gainprm="650" biasprm="0 -650 -45" />
-    <general name="joint_5_position" joint="joint_5" ctrlrange="-2.234 2.234" forcerange="-80 80" input="pos" biastype="affine" gainprm="650" biasprm="0 -650 -45" />
-    <general name="joint_6_position" joint="joint_6" ctrlrange="-6.28 6.28" forcerange="-80 80" input="pos" biastype="affine" gainprm="650" biasprm="0 -650 -45" />
+    <general name="joint_1_position" joint="joint_1" ctrlrange="-3.106 3.106" forcerange="-60 60" input="pos" biastype="affine" gainprm="650" biasprm="0 -650 -45" forcelimited="true" />
+    <general name="joint_2_position" joint="joint_2" ctrlrange="-2.2689 2.2689" forcerange="-60 60" input="pos" biastype="affine" gainprm="650" biasprm="0 -650 -45" forcelimited="true" />
+    <general name="joint_3_position" joint="joint_3" ctrlrange="-2.356 2.356" forcerange="-30 30" input="pos" biastype="affine" gainprm="650" biasprm="0 -650 -45" forcelimited="true" />
+    <general name="joint_4_position" joint="joint_4" ctrlrange="-3.106 3.106" forcerange="-10 10" input="pos" biastype="affine" gainprm="650" biasprm="0 -650 -45" forcelimited="true" />
+    <general name="joint_5_position" joint="joint_5" ctrlrange="-2.234 2.234" forcerange="-10 10" input="pos" biastype="affine" gainprm="650" biasprm="0 -650 -45" forcelimited="true" />
+    <general name="joint_6_position" joint="joint_6" ctrlrange="-6.28 6.28" forcerange="-10 10" input="pos" biastype="affine" gainprm="650" biasprm="0 -650 -45" forcelimited="true" />
     <general name="camera_rojoint_position" joint="camera_rojoint" ctrlrange="0 1.05" forcerange="-80 80" input="pos" biastype="affine" gainprm="250" biasprm="0 -250 -25" />
-    <general name="right_thumb_1_joint_position" joint="right_thumb_1_joint" ctrlrange="0 1.1641" forcerange="-1.5 1.5" input="pos" biastype="affine" gainprm="10" biasprm="0 -10 -0.25" />
-    <general name="right_thumb_2_joint_position" joint="right_thumb_2_joint" ctrlrange="0 0.5864" forcerange="-1.5 1.5" input="pos" biastype="affine" gainprm="10" biasprm="0 -10 -0.25" />
-    <general name="right_index_1_joint_position" joint="right_index_1_joint" ctrlrange="0 1.4381" forcerange="-1.5 1.5" input="pos" biastype="affine" gainprm="10" biasprm="0 -10 -0.25" />
-    <general name="right_middle_1_joint_position" joint="right_middle_1_joint" ctrlrange="0 1.4381" forcerange="-1.5 1.5" input="pos" biastype="affine" gainprm="10" biasprm="0 -10 -0.25" />
-    <general name="right_ring_1_joint_position" joint="right_ring_1_joint" ctrlrange="0 1.4381" forcerange="-1.5 1.5" input="pos" biastype="affine" gainprm="10" biasprm="0 -10 -0.25" />
-    <general name="right_little_1_joint_position" joint="right_little_1_joint" ctrlrange="0 1.4381" forcerange="-1.5 1.5" input="pos" biastype="affine" gainprm="10" biasprm="0 -10 -0.25" />
+    <general name="right_thumb_1_joint_position" joint="right_thumb_1_joint" ctrlrange="0 1.1641" forcerange="-1.5 1.5" input="pos" biastype="affine" gainprm="10" biasprm="0 -10 -0.25" forcelimited="true" />
+    <general name="right_thumb_2_joint_position" joint="right_thumb_2_joint" ctrlrange="0 0.5864" forcerange="-1.5 1.5" input="pos" biastype="affine" gainprm="10" biasprm="0 -10 -0.25" forcelimited="true" />
+    <general name="right_index_1_joint_position" joint="right_index_1_joint" ctrlrange="0 1.4381" forcerange="-1.5 1.5" input="pos" biastype="affine" gainprm="10" biasprm="0 -10 -0.25" forcelimited="true" />
+    <general name="right_middle_1_joint_position" joint="right_middle_1_joint" ctrlrange="0 1.4381" forcerange="-1.5 1.5" input="pos" biastype="affine" gainprm="10" biasprm="0 -10 -0.25" forcelimited="true" />
+    <general name="right_ring_1_joint_position" joint="right_ring_1_joint" ctrlrange="0 1.4381" forcerange="-1.5 1.5" input="pos" biastype="affine" gainprm="10" biasprm="0 -10 -0.25" forcelimited="true" />
+    <general name="right_little_1_joint_position" joint="right_little_1_joint" ctrlrange="0 1.4381" forcerange="-1.5 1.5" input="pos" biastype="affine" gainprm="10" biasprm="0 -10 -0.25" forcelimited="true" />
   </actuator>
   <sensor>
     <touch name="right_palm_force_sensor_touch" site="right_palm_force_sensor_zone" />

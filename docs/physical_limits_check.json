@@ -1,0 +1,107 @@
+{
+  "models": {
+    "models/scene.xml": [
+      {
+        "joint": "joint_1",
+        "cap_Nm": 60.0
+      },
+      {
+        "joint": "joint_2",
+        "cap_Nm": 60.0
+      },
+      {
+        "joint": "joint_3",
+        "cap_Nm": 30.0
+      },
+      {
+        "joint": "joint_4",
+        "cap_Nm": 10.0
+      },
+      {
+        "joint": "joint_5",
+        "cap_Nm": 10.0
+      },
+      {
+        "joint": "joint_6",
+        "cap_Nm": 10.0
+      },
+      {
+        "joint": "right_thumb_1_joint",
+        "cap_Nm": 1.5
+      },
+      {
+        "joint": "right_thumb_2_joint",
+        "cap_Nm": 1.5
+      },
+      {
+        "joint": "right_index_1_joint",
+        "cap_Nm": 1.5
+      },
+      {
+        "joint": "right_middle_1_joint",
+        "cap_Nm": 1.5
+      },
+      {
+        "joint": "right_ring_1_joint",
+        "cap_Nm": 1.5
+      },
+      {
+        "joint": "right_little_1_joint",
+        "cap_Nm": 1.5
+      }
+    ],
+    "grasp/scene.xml": [
+      {
+        "joint": "joint_1",
+        "cap_Nm": 60.0
+      },
+      {
+        "joint": "joint_2",
+        "cap_Nm": 60.0
+      },
+      {
+        "joint": "joint_3",
+        "cap_Nm": 30.0
+      },
+      {
+        "joint": "joint_4",
+        "cap_Nm": 10.0
+      },
+      {
+        "joint": "joint_5",
+        "cap_Nm": 10.0
+      },
+      {
+        "joint": "joint_6",
+        "cap_Nm": 10.0
+      },
+      {
+        "joint": "right_thumb_1_joint",
+        "cap_Nm": 1.5
+      },
+      {
+        "joint": "right_thumb_2_joint",
+        "cap_Nm": 1.5
+      },
+      {
+        "joint": "right_index_1_joint",
+        "cap_Nm": 1.5
+      },
+      {
+        "joint": "right_middle_1_joint",
+        "cap_Nm": 1.5
+      },
+      {
+        "joint": "right_ring_1_joint",
+        "cap_Nm": 1.5
+      },
+      {
+        "joint": "right_little_1_joint",
+        "cap_Nm": 1.5
+      }
+    ]
+  },
+  "hand_calibrated": false,
+  "fingerprint": "893cf558dded2cc75f25c4bd699757e8306fcec743bb03b4377eae5504e9deda",
+  "old_gate_stale": false
+}

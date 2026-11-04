@@ -1,87 +1,87 @@
 [
   {
     "region": "right_palm_force_sensor",
-    "force_N": 11.65448088166717,
+    "force_N": 10.297471822397064,
     "responded": true
   },
   {
     "region": "right_thumb_force_sensor_2",
-    "force_N": 4.982636053725405,
+    "force_N": 5.176420214423688,
     "responded": true
   },
   {
     "region": "right_thumb_force_sensor_3",
-    "force_N": 5.080019000501974,
+    "force_N": 4.713926687501883,
     "responded": true
   },
   {
     "region": "right_thumb_force_sensor_4",
-    "force_N": 6.376811642111923,
+    "force_N": 4.673850565336833,
     "responded": true
   },
   {
     "region": "right_thumb_force_sensor_1",
-    "force_N": 5.285793690128455,
+    "force_N": 5.469821831802909,
     "responded": true
   },
   {
     "region": "right_index_force_sensor_2",
-    "force_N": 7.016141191685101,
+    "force_N": 6.021421745897146,
     "responded": true
   },
   {
     "region": "right_index_force_sensor_3",
-    "force_N": 4.657260491035556,
+    "force_N": 3.6847416433179294,
     "responded": true
   },
   {
     "region": "right_index_force_sensor_1",
-    "force_N": 5.4687306860981595,
+    "force_N": 4.6960251064443845,
     "responded": true
   },
   {
     "region": "right_middle_force_sensor_2",
-    "force_N": 7.9422267747214175,
+    "force_N": 6.259688576956682,
     "responded": true
   },
   {
     "region": "right_middle_force_sensor_3",
-    "force_N": 5.653869219914368,
+    "force_N": 3.9706334846883675,
     "responded": true
   },
   {
     "region": "right_middle_force_sensor_1",
-    "force_N": 6.503508157154308,
+    "force_N": 4.992747952677145,
     "responded": true
   },
   {
     "region": "right_ring_force_sensor_2",
-    "force_N": 8.78336445531969,
+    "force_N": 6.378290995691612,
     "responded": true
   },
   {
     "region": "right_ring_force_sensor_3",
-    "force_N": 6.748354453799436,
+    "force_N": 4.210199425887062,
     "responded": true
   },
   {
     "region": "right_ring_force_sensor_1",
-    "force_N": 7.536490412704746,
+    "force_N": 5.28701634226313,
     "responded": true
   },
   {
     "region": "right_little_force_sensor_2",
-    "force_N": 9.452040345904294,
+    "force_N": 6.429351600757275,
     "responded": true
   },
   {
     "region": "right_little_force_sensor_3",
-    "force_N": 7.791235243896032,
+    "force_N": 4.595894212192321,
     "responded": true
   },
   {
     "region": "right_little_force_sensor_1",
-    "force_N": 8.53338909576634,
+    "force_N": 5.594602285818013,
     "responded": true
   }
 ]

@@ -51,10 +51,10 @@ python check_motion.py
 
 Server-local backups are in `backups/`, and archived setup logs are in `work/root-runtime/`. The grasp pipeline writes runtime files within `grasp/`.
 
-## RGB-D grasp training
-Current pipeline: [RGB-D + 17 tactile regions](grasp/README.zh-CN.md).
-The grasp pipeline uses native MuJoCo touch sensors, vision-relative grasp/lift goals, trajectory reachability checks and action projection. Its 120-dimensional policy achieved 91/100 on the recorded random-position evaluation, with zero IK rejections. The object center was moved 9 cm toward the base; this differs from the V1 absolute position distribution.
+## RGB-D floor grasp
 
-Current VNC viewer: `grasp/live.py`, displaying the validated random-position policy.
+The arm base and the cube share the ground plane at `z = 0`. The grasp pipeline uses 17 MuJoCo touch regions, RGB-D grasp targets, and reachability checks. See the [grasp setup and validation](grasp/README.zh-CN.md).
 
-The current pipeline provides `grasp.sh check`, `grasp.sh train`, and `grasp.sh eval` entry points. Validated checkpoints and normalization files are included; runtime logs and experimental runs remain local.
+Start the VNC viewer with `bash grasp/grasp.sh live` and the scripted grasp loop with `bash grasp/grasp.sh demo`. The checkpoints in `grasp/runs/visual_touch/` were trained on the raised-platform scene. Training or evaluating a policy for the floor scene requires a checkpoint produced for that scene.
+
+CUDA training is the default for the grasp policy. See [GPU setup and commands](grasp/GPU.zh-CN.md) and [physical limit provenance](docs/physical_limits.zh-CN.md).

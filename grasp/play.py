@@ -3,16 +3,18 @@ from pathlib import Path
 import numpy as np,torch
 from stable_baselines3 import PPO
 from stable_baselines3.common.vec_env import DummyVecEnv,VecNormalize
+from compute import resolve_device
 from env import GraspEnv,P
 from train import fingerprint
 
-def play(checkpoint,randomize=False,seed=20000):
+def play(checkpoint,randomize=False,seed=20000,device="cpu"):
+ device=resolve_device(str(device))
  checkpoint=Path(checkpoint);run=checkpoint.parent;meta=json.load(open(run/'run.json'))
  if meta['fingerprint']!=fingerprint():raise RuntimeError('Environment fingerprint mismatch')
  torch.set_num_threads(1);e=GraspEnv(randomize=randomize,publish=True);vec=DummyVecEnv([lambda:e]);norm=checkpoint.with_name(checkpoint.stem+'_vecnormalize.pkl')
  if not norm.exists() and checkpoint.stem.startswith('checkpoint_'):norm=checkpoint.with_name(checkpoint.stem.replace('checkpoint_','checkpoint_vecnormalize_',1)+'.pkl')
  if not norm.exists():norm=run/'vecnormalize.pkl'
- v=VecNormalize.load(str(norm),vec);v.training=False;v.norm_reward=False;model=PPO.load(str(checkpoint),device='cpu');episode=0
+ v=VecNormalize.load(str(norm),vec);v.training=False;v.norm_reward=False;model=PPO.load(str(checkpoint),device=device);episode=0
  try:
   while True:
    pid=int((P/'live.pid').read_text());os.kill(pid,0)

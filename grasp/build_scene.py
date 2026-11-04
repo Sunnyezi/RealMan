@@ -25,7 +25,8 @@ def solve(m,d,target,rotation,q0=None):
  if np.linalg.norm(residual[:3])>.0008 or np.linalg.norm(residual[3:])/.25>.005: raise ValueError(f'IK pose residual {residual.tolist()} for {target}')
  return best[1]
 def build():
- r=E.parse(ROOT/'models/scene.xml').getroot();r.set('model','RGB-D grasp training')
+ limits=json.loads((ROOT/'physical_limits.json').read_text())
+ r=E.parse(ROOT/'models/scene.xml').getroot();r.set('model','RGB-D floor grasp')
  r.find('compiler').set('meshdir','../models/meshes')
  r.find('option').set('timestep','0.002')
  w=r.find('worldbody')
@@ -40,18 +41,22 @@ def build():
     c=E.SubElement(b,'geom',**dict(g.attrib));c.set('name',name+'_collision');c.set('group','3');c.set('contype','2');c.set('conaffinity','5');c.set('density','0');c.set('friction','1.2 0.01 0.001');c.set('condim','4');c.set('rgba','0 1 0 0.15')
    elif name.startswith('link_'):
     c=E.SubElement(b,'geom',**dict(g.attrib));c.set('name',name+'_collision');c.set('group','3');c.set('contype','8');c.set('conaffinity','5');c.set('density','0')
- floor=w.find('geom[@name="floor"]');floor.set('contype','4');floor.set('conaffinity','11')
- E.SubElement(w,'geom',name='table',type='box',pos='0.55 0 0.255',size='0.25 0.25 0.025',rgba='0.35 0.3 0.25 1',contype='4',conaffinity='11',friction='0.9 0.01 0.001')
- obj=E.SubElement(w,'body',name='object',pos='0.51 0 0.301');E.SubElement(obj,'freejoint',name='object_free')
- E.SubElement(obj,'geom',name='object_geom',type='box',size='0.02 0.02 0.02',mass='0.05',rgba='0.05 0.1 0.95 1',contype='1',conaffinity='14',friction='1.2 0.01 0.001',condim='4')
+ floor=w.find('geom[@name="floor"]');floor.set('contype','4');floor.set('conaffinity','11');floor.set('friction','0.9 0.01 0.001')
+ # The 4 cm cube settles onto the same z=0 floor as the arm base.
+ object_half_size = .02
+ object_xyz = [.565, 0, object_half_size + .001]
+ obj=E.SubElement(w,'body',name='object',pos=' '.join(map(str, object_xyz)));E.SubElement(obj,'freejoint',name='object_free')
+ E.SubElement(obj,'geom',name='object_geom',type='box',size=' '.join([str(object_half_size)] * 3),mass='0.05',rgba='0.05 0.1 0.95 1',contype='1',conaffinity='14',friction='1.2 0.01 0.001',condim='4')
  # Camera extrinsics are synthetic; aim fixed in camera body at the nominal grasp region.
  cam_body=r.find('.//body[@name="camera_link"]')
  cam=E.SubElement(cam_body,'camera',name='rgbd',pos='0 0 0',fovy='65')
  E.SubElement(w,'camera',name='overview',pos='1.15 -1.1 1.0',xyaxes='0.72 0.69 0 -0.3 0.31 0.9')
  act=r.find('actuator')
  for a in act:
-  if a.get('joint','').startswith('joint_'):a.set('gainprm','650');a.set('biasprm','0 -650 -45')
-  elif a.get('joint','').startswith('right_'):a.set('gainprm','10');a.set('biasprm','0 -10 -0.25');a.set('forcerange','-1.5 1.5')
+  if a.get('joint','').startswith('joint_'):
+   torque=limits['arm']['joint_torque_limit_Nm'][a.get('joint')]
+   a.set('forcerange',f'{-torque:g} {torque:g}');a.set('gainprm','650');a.set('biasprm','0 -650 -45')
+  elif a.get('joint','').startswith('right_'):a.set('gainprm','10');a.set('biasprm','0 -10 -0.25');a.set('forcerange','{0:g} {1:g}'.format(-limits['hand']['simulation_torque_cap_Nm'],limits['hand']['simulation_torque_cap_Nm']))
  sensor=E.SubElement(r,'sensor');mapping=[]
  for body in w.iter('body'):
   name=body.get('name','')
@@ -73,9 +78,9 @@ def build():
  q=solve(m,d,np.array(POSE['home_xyz']),R)
  d.qpos[:6]=q;mujoco.mj_forward(m,d)
  cb=mujoco.mj_name2id(m,mujoco.mjtObj.mjOBJ_BODY,'camera_link')
- direction=np.array([.51,0,.30])-d.xpos[cb];z=-direction/np.linalg.norm(direction);x=np.cross(np.array([0,0,1.]),z);x/=np.linalg.norm(x);y=np.cross(z,x)
+ direction=np.array(object_xyz)-d.xpos[cb];z=-direction/np.linalg.norm(direction);x=np.cross(np.array([0,0,1.]),z);x/=np.linalg.norm(x);y=np.cross(z,x)
  local=d.xmat[cb].reshape(3,3).T@np.column_stack([x,y,z]);xy=local[:,:2].T.ravel()
  cam.set('xyaxes',' '.join(map(str,xy)));E.indent(r);E.ElementTree(r).write(P/'scene.xml')
- config=dict(home_q=q.tolist(),home_xyz=POSE['home_xyz'],grasp_xyz=POSE['grasp_xyz'],hand_target=POSE['hand_target'],hand_center=POSE['hand_center'],object_xyz=[.51,0,.301],rotation=R.tolist(),physics_dt=.002,control_dt=.05,vision_dt=.1,horizon=240,seed=42,lift_distance=.12,random_radius=.05,force_scale_N=10.,contact_threshold_N=.02,opened_thumb2=.08)
+ config=dict(home_q=q.tolist(),home_xyz=POSE['home_xyz'],grasp_xyz=POSE['grasp_xyz'],hand_target=POSE['hand_target'],hand_center=POSE['hand_center'],object_xyz=object_xyz,rotation=R.tolist(),physics_dt=.002,control_dt=.05,vision_dt=.1,horizon=240,seed=42,lift_distance=.12,random_radius=.05,force_scale_N=10.,contact_threshold_N=.02,opened_thumb2=.08)
  (P/'config.json').write_text(json.dumps(config,indent=2));print(config)
 if __name__=='__main__':build()
