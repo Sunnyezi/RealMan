@@ -14,7 +14,7 @@
   "previous_object_center_x_m": 0.6,
   "random_radius_xy_m": 0.05,
   "minimum_corner_trajectory_margin_m": 0.008599251390646157,
-  "checkpoint": "runs/visual_touch_v2/best_policy.zip",
+  "checkpoint": "runs/visual_touch/best_policy.zip",
   "checkpoint_validation": {
     "timesteps": 0,
     "success_rate": 1.0,

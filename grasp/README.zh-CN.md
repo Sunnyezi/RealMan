@@ -1,6 +1,6 @@
-# 抓取模型 V2：触觉输入与视觉目标修正
+# 抓取模型：触觉输入与视觉目标修正
 
-服务器目录：`/home/szy2025/Desktop/RealMan/grasp_v2`。Conda 环境：`realman-mujoco`。仓库仅保留当前训练管线；旧版 `grasp` 及其模型权重已移除。
+服务器目录：`/home/szy2025/Desktop/RealMan/grasp`。Conda 环境：`realman-mujoco`。仓库仅保留当前训练管线；旧版训练管线及其模型权重已移除。
 
 ## 已完成的修改
 
@@ -24,7 +24,7 @@
 | 116–118 | 视觉抬升目标相对末端的误差 |
 | 119 | 规划有效标志 |
 
-通道与部件映射：`sensor_map.json`。输入布局：`observation_layout.json`。旧版 79 维模型不能直接加载到新版环境，需使用 V2 权重。
+通道与部件映射：`sensor_map.json`。输入布局：`observation_layout.json`。旧版 79 维模型不能直接加载到新版环境，需使用 当前版本的权重。
 
 ## 实际验证
 
@@ -42,21 +42,21 @@
 从仓库根目录运行以下命令。
 
 ```bash
-cd grasp_v2
+cd grasp
 
 # 重新验证环境、传感器和随机脚本
 bash grasp.sh check
 
 # 新版最佳策略 100 回合随机评估
-bash grasp.sh eval runs/visual_touch_v2/best_policy.zip --randomize --episodes 100 --seed 10000
+bash grasp.sh eval runs/visual_touch/best_policy.zip --randomize --episodes 100 --seed 10000
 
 # 在已打开的 VNC 窗口中循环运行新版随机策略
-bash grasp.sh eval runs/visual_touch_v2/best_policy.zip --randomize --viewer --loop
+bash grasp.sh eval runs/visual_touch/best_policy.zip --randomize --viewer --loop
 
 # 后续训练入口
-bash grasp.sh train --randomize --warmstart --steps 300000 --envs 4 --run runs/next_v2
+bash grasp.sh train --randomize --warmstart --steps 300000 --envs 4 --run runs/next
 ```
 
 当前 VNC 桌面仍为 `:15`，本机连接 `127.0.0.1:15900`。窗口中 17 个区域以绿色到红色显示接触力变化，文字显示活跃区域数量。循环策略推理与神经网络训练是不同进程；目前训练已结束，窗口运行推理。
 
-报告：`checks/release_report.json`、`checks/gate.json`、`checks/sensor_probe.json`、`runs/visual_touch_v2/evaluation_random.json`。
+报告：`checks/release_report.json`、`checks/gate.json`、`checks/sensor_probe.json`、`runs/visual_touch/evaluation_random.json`。

@@ -47,14 +47,14 @@ python check_motion.py
 | [docs/model-validation/](docs/model-validation/) | Build report and recorded motion, mount, and arm replacement checks |
 | [docs/screenshots/](docs/screenshots/) | Recorded VNC views and joint 6 annotation |
 | [tools/legacy/](tools/legacy/) | Scripts from the initial model setup and troubleshooting |
-| [grasp_v2/](grasp_v2/) | Grasp training, evaluation, and released checkpoints |
+| [grasp/](grasp/) | Grasp training, evaluation, and released checkpoints |
 
-Server-local backups are in `backups/`, and archived setup logs are in `work/root-runtime/`. V2 writes runtime files within `grasp_v2/`.
+Server-local backups are in `backups/`, and archived setup logs are in `work/root-runtime/`. The grasp pipeline writes runtime files within `grasp/`.
 
 ## RGB-D grasp training
-Current pipeline: [RGB-D + 17 tactile regions (V2)](grasp_v2/README.zh-CN.md).
-V2 adds native MuJoCo touch sensors, vision-relative grasp/lift goals, trajectory reachability checks and action projection. Its 120-dimensional policy achieved 91/100 on the recorded random-position evaluation, with zero IK rejections. The object center was moved 9 cm toward the base; this differs from the V1 absolute position distribution.
+Current pipeline: [RGB-D + 17 tactile regions](grasp/README.zh-CN.md).
+The grasp pipeline uses native MuJoCo touch sensors, vision-relative grasp/lift goals, trajectory reachability checks and action projection. Its 120-dimensional policy achieved 91/100 on the recorded random-position evaluation, with zero IK rejections. The object center was moved 9 cm toward the base; this differs from the V1 absolute position distribution.
 
-Current VNC viewer: `grasp_v2/live.py`, displaying the validated random-position policy.
+Current VNC viewer: `grasp/live.py`, displaying the validated random-position policy.
 
 The current pipeline provides `grasp.sh check`, `grasp.sh train`, and `grasp.sh eval` entry points. Validated checkpoints and normalization files are included; runtime logs and experimental runs remain local.
