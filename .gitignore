@@ -18,4 +18,3 @@ __pycache__/
 **/policy_play_status.json
 **/runs/
 **/checks/
-/grasp/*.png

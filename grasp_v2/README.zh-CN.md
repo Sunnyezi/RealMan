@@ -1,6 +1,6 @@
 # 抓取模型 V2：触觉输入与视觉目标修正
 
-服务器目录：`/home/szy2025/Desktop/RealMan/grasp_v2`。Conda 环境：`realman-mujoco`。旧版 `grasp` 与其模型权重均保留。
+服务器目录：`/home/szy2025/Desktop/RealMan/grasp_v2`。Conda 环境：`realman-mujoco`。仓库仅保留当前训练管线；旧版 `grasp` 及其模型权重已移除。
 
 ## 已完成的修改
 
