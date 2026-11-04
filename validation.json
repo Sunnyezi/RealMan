@@ -1,0 +1,32 @@
+{
+  "mujoco": "3.17.0",
+  "nq": 19,
+  "nv": 19,
+  "nu": 13,
+  "actuators": [
+    "joint_1",
+    "joint_2",
+    "joint_3",
+    "joint_4",
+    "joint_5",
+    "joint_6",
+    "camera_rojoint",
+    "right_thumb_1_joint",
+    "right_thumb_2_joint",
+    "right_index_1_joint",
+    "right_middle_1_joint",
+    "right_ring_1_joint",
+    "right_little_1_joint"
+  ],
+  "time": 10.000000000000009,
+  "warnings": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "max_abs_qpos": 0.0005087260554802659
+}

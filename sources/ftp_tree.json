@@ -1,0 +1,823 @@
+{
+  "sha": "679dcdd50a26a376eddd066926c81d94e98a9767",
+  "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/trees/679dcdd50a26a376eddd066926c81d94e98a9767",
+  "tree": [
+    {
+      "path": ".gitignore",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "48a74c020fea60df2130e203cc6ee64e91580c6a",
+      "size": 127,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/48a74c020fea60df2130e203cc6ee64e91580c6a"
+    },
+    {
+      "path": "README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7bb07aa2b78db9ea3bbd31d6ec7b8f38d21375db",
+      "size": 3611,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/7bb07aa2b78db9ea3bbd31d6ec7b8f38d21375db"
+    },
+    {
+      "path": "docs",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "07a94b2ea35e435726abbc4902aa0c74dae85c81",
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/trees/07a94b2ea35e435726abbc4902aa0c74dae85c81"
+    },
+    {
+      "path": "docs/TACTILE_WORKFLOW_NOTES.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f0dcf3aa3e4fafb92a45b9dc8f3f83c75b8afd5c",
+      "size": 14534,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/f0dcf3aa3e4fafb92a45b9dc8f3f83c75b8afd5c"
+    },
+    {
+      "path": "launch",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "d41033610039b1219e9dcb414001856301f00e2f",
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/trees/d41033610039b1219e9dcb414001856301f00e2f"
+    },
+    {
+      "path": "launch/start_live_filtered_left_palm.sh",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "0449a80b01a809ef4ba4c824b65597299a1d8cf7",
+      "size": 1026,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/0449a80b01a809ef4ba4c824b65597299a1d8cf7"
+    },
+    {
+      "path": "launch/start_live_filtered_right_palm.sh",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "ae20d3effd826e06a635053164cc0dc19152f371",
+      "size": 1032,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/ae20d3effd826e06a635053164cc0dc19152f371"
+    },
+    {
+      "path": "launch/start_live_left_palm.sh",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "1c678a257feac06a9d1a157adec61f412343ea66",
+      "size": 908,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/1c678a257feac06a9d1a157adec61f412343ea66"
+    },
+    {
+      "path": "launch/start_live_right_palm.sh",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "f5f44e676d63b19e4186ef304bd182dbd4c1c541",
+      "size": 915,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/f5f44e676d63b19e4186ef304bd182dbd4c1c541"
+    },
+    {
+      "path": "requirements.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9bcfd02171c449ae4b120304d0541dc43adf10a6",
+      "size": 14,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/9bcfd02171c449ae4b120304d0541dc43adf10a6"
+    },
+    {
+      "path": "rh56_tactile",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "3d125eb9026789e34d62c7716d1da7fb882585cd",
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/trees/3d125eb9026789e34d62c7716d1da7fb882585cd"
+    },
+    {
+      "path": "rh56_tactile/__init__.py",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "cd3fe2797a3ca77aa793b5a06f650abdf04317f7",
+      "size": 79,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/cd3fe2797a3ca77aa793b5a06f650abdf04317f7"
+    },
+    {
+      "path": "rh56_tactile/common.py",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "218ceaf4669611db0b3d86071dfa4f0f517aabb6",
+      "size": 14246,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/218ceaf4669611db0b3d86071dfa4f0f517aabb6"
+    },
+    {
+      "path": "rh56_tactile/noise_filter.py",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "85328dd20612fc509222cd08a894faff81e81730",
+      "size": 7143,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/85328dd20612fc509222cd08a894faff81e81730"
+    },
+    {
+      "path": "rviz",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "07205de45d67f6f42fb3a0a2fc4b90faa7b8430a",
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/trees/07205de45d67f6f42fb3a0a2fc4b90faa7b8430a"
+    },
+    {
+      "path": "rviz/left_hand_urdf_tactile_palm.rviz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f952e7f1be3cce0767f0db8387bd35ccd6835dc1",
+      "size": 1333,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/f952e7f1be3cce0767f0db8387bd35ccd6835dc1"
+    },
+    {
+      "path": "rviz/right_hand_tactile.rviz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9cb8032536fb8759fea8ab813bafc29e8775f47b",
+      "size": 1069,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/9cb8032536fb8759fea8ab813bafc29e8775f47b"
+    },
+    {
+      "path": "rviz/right_hand_urdf_tactile.rviz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6c8fba69c813451e00a3ab675dbdc3cbb26139bc",
+      "size": 1303,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/6c8fba69c813451e00a3ab675dbdc3cbb26139bc"
+    },
+    {
+      "path": "rviz/right_hand_urdf_tactile_closeup.rviz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7f9c7b96eac76dffac9702425fb943af89987f43",
+      "size": 1334,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/7f9c7b96eac76dffac9702425fb943af89987f43"
+    },
+    {
+      "path": "rviz/right_hand_urdf_tactile_palm.rviz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7f9c7b96eac76dffac9702425fb943af89987f43",
+      "size": 1334,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/7f9c7b96eac76dffac9702425fb943af89987f43"
+    },
+    {
+      "path": "scripts",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "11c837a97ed8b01dadf40ccae1f2fccc31509c67",
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/trees/11c837a97ed8b01dadf40ccae1f2fccc31509c67"
+    },
+    {
+      "path": "scripts/adaptive_grasp_force_record_session.py",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "a783334965701e83fdbeae84bafbb318755b62c7",
+      "size": 14792,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/a783334965701e83fdbeae84bafbb318755b62c7"
+    },
+    {
+      "path": "scripts/adaptive_grasp_force_record_session_squeeze.py",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "7a36a0b9d8333cdd0ad61d56dc0e327a4711e4f6",
+      "size": 16669,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/7a36a0b9d8333cdd0ad61d56dc0e327a4711e4f6"
+    },
+    {
+      "path": "scripts/analyze_circle_contact_diagnostics.py",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "c5e2efdddb214aeac6429a38c53421ab198beea4",
+      "size": 8506,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/c5e2efdddb214aeac6429a38c53421ab198beea4"
+    },
+    {
+      "path": "scripts/analyze_noise_filtered_session.py",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "95d3bb6e7fddb3aee5c135656700181cd3611668",
+      "size": 6682,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/95d3bb6e7fddb3aee5c135656700181cd3611668"
+    },
+    {
+      "path": "scripts/check_all_tactile_sensors.py",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "bc7ef48b563e4e18a832a08402d96b7f8d5ec307",
+      "size": 9522,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/bc7ef48b563e4e18a832a08402d96b7f8d5ec307"
+    },
+    {
+      "path": "scripts/generate_tactile_shape_report.py",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "019cf054b4e482f09ae3d519b82851678f176b98",
+      "size": 65731,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/019cf054b4e482f09ae3d519b82851678f176b98"
+    },
+    {
+      "path": "scripts/prepare_urdf_for_rviz.py",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "aa2ac1519930e50695f4e3da90d0e10164098f36",
+      "size": 1503,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/aa2ac1519930e50695f4e3da90d0e10164098f36"
+    },
+    {
+      "path": "scripts/record_contact_verified.py",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "3c7adc3d94c8a202fd0cc81af8d346b62721f9c5",
+      "size": 5026,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/3c7adc3d94c8a202fd0cc81af8d346b62721f9c5"
+    },
+    {
+      "path": "scripts/record_tactile_slide_session.py",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "3b3ba1c754b3d504917ba819d20c3f90e517456d",
+      "size": 12631,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/3b3ba1c754b3d504917ba819d20c3f90e517456d"
+    },
+    {
+      "path": "scripts/rh56_tactile_common.py",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "c5e8f452f41166bf672cb928a27c592ab7794852",
+      "size": 296,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/c5e8f452f41166bf672cb928a27c592ab7794852"
+    },
+    {
+      "path": "scripts/rviz_recording_playback.py",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "02e541e5e56071a20fc8c14e0ecddc80c66261d1",
+      "size": 7965,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/02e541e5e56071a20fc8c14e0ecddc80c66261d1"
+    },
+    {
+      "path": "scripts/rviz_urdf_recording_playback.py",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "1829abf444b376bb2c9fc205175ba062fcd7b874",
+      "size": 10821,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/1829abf444b376bb2c9fc205175ba062fcd7b874"
+    },
+    {
+      "path": "scripts/rviz_urdf_tactile_live.py",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "2381d8e2ba8509f04d3c0eb25cd6dd626dc2aa04",
+      "size": 8235,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/2381d8e2ba8509f04d3c0eb25cd6dd626dc2aa04"
+    },
+    {
+      "path": "scripts/rviz_urdf_tactile_live_filtered.py",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "19d57c05d1fcddda41f3d0f9983cea8116c1ca34",
+      "size": 9671,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/19d57c05d1fcddda41f3d0f9983cea8116c1ca34"
+    },
+    {
+      "path": "scripts/tactile_noise_filter.py",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "92838f6201f63f5b4ea941023b744b66b69a2f68",
+      "size": 291,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/92838f6201f63f5b4ea941023b744b66b69a2f68"
+    },
+    {
+      "path": "urdf",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "a307bcae227bea4f120b2164220d2be027d09182",
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/trees/a307bcae227bea4f120b2164220d2be027d09182"
+    },
+    {
+      "path": "urdf/inspire_hand",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "0ca97b3d47556b190e5fe5f6996acc4e61810f03",
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/trees/0ca97b3d47556b190e5fe5f6996acc4e61810f03"
+    },
+    {
+      "path": "urdf/inspire_hand/FTP_left_hand.urdf",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ab1c4261eedbfaa721cbba67d8e7e3b233a0c6a2",
+      "size": 34341,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/ab1c4261eedbfaa721cbba67d8e7e3b233a0c6a2"
+    },
+    {
+      "path": "urdf/inspire_hand/FTP_right_hand.urdf",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7669215a0503779181b3b03ab0ab54f23c7e4444",
+      "size": 34234,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/7669215a0503779181b3b03ab0ab54f23c7e4444"
+    },
+    {
+      "path": "urdf/inspire_hand/SOURCE.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2be4942100c3450331f1f2ad6c3748d89e9f2e55",
+      "size": 352,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/2be4942100c3450331f1f2ad6c3748d89e9f2e55"
+    },
+    {
+      "path": "urdf/inspire_hand/config.yaml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f8c91ec4030ef7edcd81c8a5f20cbd3b100f135f",
+      "size": 218,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/f8c91ec4030ef7edcd81c8a5f20cbd3b100f135f"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "a406a66aa59414aaf9ff337d594caa8536bb7c41",
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/trees/a406a66aa59414aaf9ff337d594caa8536bb7c41"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_base_link.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9e0adba588fb557350a14289c45232436c9dad89",
+      "size": 3224784,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/9e0adba588fb557350a14289c45232436c9dad89"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_index_1.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a11e98a0c2e644f1ef114faac4329c93dab9133f",
+      "size": 769484,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/a11e98a0c2e644f1ef114faac4329c93dab9133f"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_index_2.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "25c9d24d9e15753069217c5d31161a182de098d9",
+      "size": 370184,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/25c9d24d9e15753069217c5d31161a182de098d9"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_index_force_sensor_1.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "599a1f46b758bd45472f7986ca55812300b86e08",
+      "size": 360484,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/599a1f46b758bd45472f7986ca55812300b86e08"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_index_force_sensor_2.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3a85c86755f9e0806e91b4bb88aa4fc588ecb96e",
+      "size": 371784,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/3a85c86755f9e0806e91b4bb88aa4fc588ecb96e"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_index_force_sensor_3.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e14da6f97df9be6c236047777edf62b7107e5356",
+      "size": 86684,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/e14da6f97df9be6c236047777edf62b7107e5356"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_little_1.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7558b591820082b76931bd21b69e017d199bd843",
+      "size": 769484,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/7558b591820082b76931bd21b69e017d199bd843"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_little_2.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d6d0afddb2e4a95ea78e171e2217c7ea9aa0d66b",
+      "size": 381484,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/d6d0afddb2e4a95ea78e171e2217c7ea9aa0d66b"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_little_force_sensor_1.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "53aa6bda0516be3287a48ac43254440a2489a813",
+      "size": 360484,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/53aa6bda0516be3287a48ac43254440a2489a813"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_little_force_sensor_2.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "72f4b95ccf1c9fb164ad74f542c368862e22009e",
+      "size": 397784,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/72f4b95ccf1c9fb164ad74f542c368862e22009e"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_little_force_sensor_3.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5893145df11e51bf499992dfdfd0bba5e526caec",
+      "size": 81784,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/5893145df11e51bf499992dfdfd0bba5e526caec"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_middle_1.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ff6c1ca0379a3f5fd6cbd4704b6e63de4e77c2cc",
+      "size": 769484,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/ff6c1ca0379a3f5fd6cbd4704b6e63de4e77c2cc"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_middle_2.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "385e89a3d963cb4e897d442f6f2ae4d23efd4474",
+      "size": 362384,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/385e89a3d963cb4e897d442f6f2ae4d23efd4474"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_middle_force_sensor_1.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cd5a181910bbc288ff90e9395ff3f41b6b11eebb",
+      "size": 360484,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/cd5a181910bbc288ff90e9395ff3f41b6b11eebb"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_middle_force_sensor_2.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bdb4c5e25ac34fc2f579ff8ef84d32890e548c4f",
+      "size": 326984,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/bdb4c5e25ac34fc2f579ff8ef84d32890e548c4f"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_middle_force_sensor_3.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7f4e13b93413b054e8032f775ffc4d27f4489a13",
+      "size": 80584,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/7f4e13b93413b054e8032f775ffc4d27f4489a13"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_palm_force_sensor.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f4ca00730cb58063d6d3a2e852684cf2234605ca",
+      "size": 1614284,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/f4ca00730cb58063d6d3a2e852684cf2234605ca"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_ring_1.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6d3fdcd8fe4b9962167ea018919f1663a8845e03",
+      "size": 769484,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/6d3fdcd8fe4b9962167ea018919f1663a8845e03"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_ring_2.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "614e920f27a9085fcc0275d8cf732a4f087d9cf0",
+      "size": 370184,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/614e920f27a9085fcc0275d8cf732a4f087d9cf0"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_ring_force_sensor_1.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "79b1abf9f21d0bbf91c6f8f6f141ff5329936acc",
+      "size": 360484,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/79b1abf9f21d0bbf91c6f8f6f141ff5329936acc"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_ring_force_sensor_2.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2408f77b83bbf2218d8ebaad00298cf302216c42",
+      "size": 371784,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/2408f77b83bbf2218d8ebaad00298cf302216c42"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_ring_force_sensor_3.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "92eaeed50ca42b87e89e7943fa2a838ffe7b19de",
+      "size": 86684,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/92eaeed50ca42b87e89e7943fa2a838ffe7b19de"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_thumb_1.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "806d8da4823a6b1972afeb2c5d9318af2d66a16f",
+      "size": 32184,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/806d8da4823a6b1972afeb2c5d9318af2d66a16f"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_thumb_2.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4f9a8ad6c9411269e4ed0d3fd15bcb9b2c6e12d5",
+      "size": 576384,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/4f9a8ad6c9411269e4ed0d3fd15bcb9b2c6e12d5"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_thumb_3.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8062151fe1d2e4409fa426f317d858a93cab6c77",
+      "size": 424484,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/8062151fe1d2e4409fa426f317d858a93cab6c77"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_thumb_4.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ab244393bc5812ada80a7a8572bcb5140284df37",
+      "size": 547784,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/ab244393bc5812ada80a7a8572bcb5140284df37"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_thumb_force_sensor_1.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7215b15f46174a9b79ec870d051db6bf77c4cbee",
+      "size": 359684,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/7215b15f46174a9b79ec870d051db6bf77c4cbee"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_thumb_force_sensor_2.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2906475f20e315cb8b766e46dd311b71d2380d7a",
+      "size": 127484,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/2906475f20e315cb8b766e46dd311b71d2380d7a"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_thumb_force_sensor_3.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d9e2c848bc5717048f3b55102542c750a39ffe7a",
+      "size": 294484,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/d9e2c848bc5717048f3b55102542c750a39ffe7a"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/left_thumb_force_sensor_4.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "35bf67da185bc23cd5556b2a21849ea26d79b639",
+      "size": 64584,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/35bf67da185bc23cd5556b2a21849ea26d79b639"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_base_link.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f7dae5c8d06975536dabcaf0403b7e0f6455950e",
+      "size": 4517284,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/f7dae5c8d06975536dabcaf0403b7e0f6455950e"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_index_1.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c17ff302e0a01a1c6a3e848dfbffce4bc0cc6132",
+      "size": 772784,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/c17ff302e0a01a1c6a3e848dfbffce4bc0cc6132"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_index_2.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3f5e46236f5996170889022673ab75497b0ae658",
+      "size": 372484,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/3f5e46236f5996170889022673ab75497b0ae658"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_index_force_sensor_1.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b271a2ad21ce8c4966c75ce6a52651d0696eaec3",
+      "size": 359084,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/b271a2ad21ce8c4966c75ce6a52651d0696eaec3"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_index_force_sensor_2.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f056699582d52a4dfcb66af9f70b7ed68a53bab2",
+      "size": 371084,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/f056699582d52a4dfcb66af9f70b7ed68a53bab2"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_index_force_sensor_3.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7bf3a71fa5b485fdaebf0ef1682884a44be37ba6",
+      "size": 87284,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/7bf3a71fa5b485fdaebf0ef1682884a44be37ba6"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_little_1.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cc797889d4938da7f2bdf01aaae3958a08a912df",
+      "size": 772784,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/cc797889d4938da7f2bdf01aaae3958a08a912df"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_little_2.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c42f6d7ae14854df081267f5cda6e0a68c673d83",
+      "size": 380384,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/c42f6d7ae14854df081267f5cda6e0a68c673d83"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_little_force_sensor_1.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c4bffaf2191e78335395565059d51af4adfc7d2c",
+      "size": 359084,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/c4bffaf2191e78335395565059d51af4adfc7d2c"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_little_force_sensor_2.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c1d599d2221b7e021ec671e8f062173d118610a1",
+      "size": 397084,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/c1d599d2221b7e021ec671e8f062173d118610a1"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_little_force_sensor_3.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f5d06b491301463345e1bace0c9527f5614c059a",
+      "size": 81784,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/f5d06b491301463345e1bace0c9527f5614c059a"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_middle_1.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a6942b7896a8baa4be76af9b5a074690efedece8",
+      "size": 772784,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/a6942b7896a8baa4be76af9b5a074690efedece8"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_middle_2.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0f3865f9dde55ab404cc3c629f36ac17094ea2db",
+      "size": 363384,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/0f3865f9dde55ab404cc3c629f36ac17094ea2db"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_middle_force_sensor_1.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d42d83071a167220c1f8d0674972feb1b4282bde",
+      "size": 359084,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/d42d83071a167220c1f8d0674972feb1b4282bde"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_middle_force_sensor_2.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2feead595c7c036dc03fec1998cf66bc3ff9062c",
+      "size": 326984,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/2feead595c7c036dc03fec1998cf66bc3ff9062c"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_middle_force_sensor_3.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bb35da18803f1f52ca55dbdcd350cc6623a3c6f5",
+      "size": 80384,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/bb35da18803f1f52ca55dbdcd350cc6623a3c6f5"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_palm_force_sensor.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "60824bf5e2a07d179fecaeee5102ce500a970081",
+      "size": 1584484,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/60824bf5e2a07d179fecaeee5102ce500a970081"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_ring_1.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6fc79ca9bd4951bd873c6a89ef6c4c526e989f04",
+      "size": 772784,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/6fc79ca9bd4951bd873c6a89ef6c4c526e989f04"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_ring_2.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a4cf458083aefc1983ecd2b62b97a6c3ae6a51f2",
+      "size": 372484,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/a4cf458083aefc1983ecd2b62b97a6c3ae6a51f2"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_ring_force_sensor_1.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "40d42a15dd7b942d2afba8f540ecef36e2c9dc90",
+      "size": 359084,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/40d42a15dd7b942d2afba8f540ecef36e2c9dc90"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_ring_force_sensor_2.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0e9e95b2ee862cccf01ad02483054d867939d1d2",
+      "size": 371084,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/0e9e95b2ee862cccf01ad02483054d867939d1d2"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_ring_force_sensor_3.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "32c799b5617faa524b21008bcfc0704bd913c29d",
+      "size": 87284,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/32c799b5617faa524b21008bcfc0704bd913c29d"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_thumb_1.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a4f441c769e0ff3e9ff79069ce90699a217778c0",
+      "size": 32184,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/a4f441c769e0ff3e9ff79069ce90699a217778c0"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_thumb_2.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0b29f9b954e3bcab2c30f02095d050b5cb82b1f1",
+      "size": 579884,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/0b29f9b954e3bcab2c30f02095d050b5cb82b1f1"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_thumb_3.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cf5cab14053fc1a6e09b6dd14683cd3ef94ea048",
+      "size": 424684,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/cf5cab14053fc1a6e09b6dd14683cd3ef94ea048"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_thumb_4.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bf147e071eb9857ffa525d2e64aae6edea8ddc58",
+      "size": 547584,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/bf147e071eb9857ffa525d2e64aae6edea8ddc58"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_thumb_force_sensor_1.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9993ba896ad6e99b46125f05d36c3a9001321b4a",
+      "size": 359884,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/9993ba896ad6e99b46125f05d36c3a9001321b4a"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_thumb_force_sensor_2.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ee1fe22f89988ee17ffc731d20984b4cfe877fa7",
+      "size": 126684,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/ee1fe22f89988ee17ffc731d20984b4cfe877fa7"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_thumb_force_sensor_3.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "57f9055d0a04e82a61bdb234b3132ae619c8c3a0",
+      "size": 294384,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/57f9055d0a04e82a61bdb234b3132ae619c8c3a0"
+    },
+    {
+      "path": "urdf/inspire_hand/meshes/right_thumb_force_sensor_4.STL",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1842e2e20f5fb01192eaf8d31f391db53a80ab09",
+      "size": 64584,
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/blobs/1842e2e20f5fb01192eaf8d31f391db53a80ab09"
+    }
+  ],
+  "truncated": false
+}

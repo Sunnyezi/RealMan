@@ -1,0 +1,101 @@
+{
+  "sha": "679dcdd50a26a376eddd066926c81d94e98a9767",
+  "node_id": "C_kwDOS9nVjNoAKDY3OWRjZGQ1MGEyNmEzNzZlZGRkMDY2OTI2YzgxZDk0ZTk4YTk3Njc",
+  "commit": {
+    "author": {
+      "name": "Alexandr Arutiunian",
+      "email": "89289600+AlexArutiunian@users.noreply.github.com",
+      "date": "2026-06-30T05:56:40Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2026-06-30T05:56:40Z"
+    },
+    "message": "Update README.md",
+    "tree": {
+      "sha": "b4a068194656731c56f0d18d9168b13380f88e10",
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/trees/b4a068194656731c56f0d18d9168b13380f88e10"
+    },
+    "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/git/commits/679dcdd50a26a376eddd066926c81d94e98a9767",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqQ1qYCRC1aQ7uu5UhlAAA8b4QAArEEDEg7nUfKbyoWKBz/Q2v\nQoWRsd4j3fjjY8JwrFj7vdBOo3XuhxoDfQtcy1KbJmaw70J4WGyNe/W7a/SJNqYP\nMpI0PuwHWPs/Q2D6lHHTNefwTddopYCTUxL8fXkN6g4IrBbLc8RvdRW38IOwAWDB\nPaCNwnoNQulPiHuFU8STHQiFYr2S1pmTgiAWflVw/ls6tXiUxWahT3frtxSc12u4\nGsYwIfoDrzDhZUnULrVfYpfhxi7G+SO2QC/L45rVy6EEaV4Tqcog+eOhLMfkJwLp\nEftthGNLLPJfCqGdEcV6rWH/t9P5JiaDYXRhp6lEVqwPBfj6LZhRDx6eFtgvysZI\nn25m+mRax8/Dvz8bKMIhkWMl7+4vbgG3epNSbTMxQBa1LuWhftpqY6VfSJDvn25g\n03+FlwUM2gW7jYcnovha6HunbFUdKip5V5MQSzz9roBDEj2U98ka4CmHOTVKQlqg\nQjLq4xTeztJ5Q5uNJjW1n8WfF4SK9PiEA0q9tPMqW+RIinFdqvlUV7AvLglSapXy\n4amFzKB7HNecI8u/7Ixis+0tDDhwBYYKAJRJYGm8w4r0w74+AjOjwRJYMNVl6fGB\n1irZGZFva5yk7pC7NSyTAUi7XID3pywCVMOyPUkFgyWJqvLxa3bK3Lrym//25H3k\n54NzlDUgexammih+ME84\n=Uiw9\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree b4a068194656731c56f0d18d9168b13380f88e10\nparent a4ce6ca759cbd260a9da950c7dc64f7a8e846c24\nauthor Alexandr Arutiunian <89289600+AlexArutiunian@users.noreply.github.com> 1782799000 +0300\ncommitter GitHub <noreply@github.com> 1782799000 +0300\n\nUpdate README.md",
+      "verified_at": "2026-06-30T05:56:41Z"
+    }
+  },
+  "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/commits/679dcdd50a26a376eddd066926c81d94e98a9767",
+  "html_url": "https://github.com/AlexArutiunian/tactile-rh56dftp/commit/679dcdd50a26a376eddd066926c81d94e98a9767",
+  "comments_url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/commits/679dcdd50a26a376eddd066926c81d94e98a9767/comments",
+  "author": {
+    "login": "AlexArutiunian",
+    "id": 89289600,
+    "node_id": "MDQ6VXNlcjg5Mjg5NjAw",
+    "avatar_url": "https://avatars.githubusercontent.com/u/89289600?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/AlexArutiunian",
+    "html_url": "https://github.com/AlexArutiunian",
+    "followers_url": "https://api.github.com/users/AlexArutiunian/followers",
+    "following_url": "https://api.github.com/users/AlexArutiunian/following{/other_user}",
+    "gists_url": "https://api.github.com/users/AlexArutiunian/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/AlexArutiunian/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/AlexArutiunian/subscriptions",
+    "organizations_url": "https://api.github.com/users/AlexArutiunian/orgs",
+    "repos_url": "https://api.github.com/users/AlexArutiunian/repos",
+    "events_url": "https://api.github.com/users/AlexArutiunian/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/AlexArutiunian/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "a4ce6ca759cbd260a9da950c7dc64f7a8e846c24",
+      "url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/commits/a4ce6ca759cbd260a9da950c7dc64f7a8e846c24",
+      "html_url": "https://github.com/AlexArutiunian/tactile-rh56dftp/commit/a4ce6ca759cbd260a9da950c7dc64f7a8e846c24"
+    }
+  ],
+  "stats": {
+    "total": 2,
+    "additions": 1,
+    "deletions": 1
+  },
+  "files": [
+    {
+      "sha": "7bb07aa2b78db9ea3bbd31d6ec7b8f38d21375db",
+      "filename": "README.md",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/AlexArutiunian/tactile-rh56dftp/blob/679dcdd50a26a376eddd066926c81d94e98a9767/README.md",
+      "raw_url": "https://github.com/AlexArutiunian/tactile-rh56dftp/raw/679dcdd50a26a376eddd066926c81d94e98a9767/README.md",
+      "contents_url": "https://api.github.com/repos/AlexArutiunian/tactile-rh56dftp/contents/README.md?ref=679dcdd50a26a376eddd066926c81d94e98a9767",
+      "patch": "@@ -81,7 +81,7 @@ python3 scripts/record_tactile_slide_session.py \\\n   --object-name cup_small \\\n   --session-name cup_small_slide_manual_01 \\\n   --out-root data/tactile_sessions \\\n-  --duration 25 \\\n+  --record-sec 25 \\\n   --baseline-sec 3\n ```\n "
+    }
+  ]
+}

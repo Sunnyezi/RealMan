@@ -1,0 +1,7 @@
+name: realman-mujoco
+channels:
+  - conda-forge
+dependencies:
+  - pip
+  - python=3.11
+prefix: /home/szy2025/.conda/envs/realman-mujoco

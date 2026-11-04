@@ -1,0 +1,15 @@
+{
+  "mount_translation": [
+    0,
+    0,
+    0
+  ],
+  "mount_rpy": [
+    0,
+    0,
+    0
+  ],
+  "mount_face_gap_m": 4.768205136285175e-10,
+  "hand_unchanged_except_mount": true,
+  "backup": "/home/szy2025/Desktop/RealMan/backups/20261104_161443_before_flush_mount"
+}
