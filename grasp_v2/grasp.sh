@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-cd /home/szy2025/Desktop/RealMan/grasp_v2
+cd -- "$(dirname -- "${BASH_SOURCE[0]}")"
 source /opt/conda/etc/profile.d/conda.sh
 conda activate realman-mujoco
 mode=${1:-check}; shift || true
@@ -8,7 +8,7 @@ export OMP_NUM_THREADS=1
 case "$mode" in
  live)
   export DISPLAY=${DISPLAY:-:15}
-  export XAUTHORITY=/home/szy2025/.Xauthority
+  export XAUTHORITY="${XAUTHORITY:-$HOME/.Xauthority}"
   export MUJOCO_GL=glfw LIBGL_ALWAYS_SOFTWARE=1
   exec python live.py "$@";;
  check|train|eval)

@@ -1,15 +1,14 @@
 # RM65 V + RH56DFTP right: MuJoCo setup
 
-Directory: /home/szy2025/Desktop/RealMan
-Conda: realman-mujoco (Python 3.11)
+The launch commands below run from the repository root. Use the `realman-mujoco` Conda environment (Python 3.11).
 
 Start visible viewer on existing VNC desktop :15:
 
-    bash /home/szy2025/Desktop/RealMan/launch_view.sh
+    bash launch_view.sh
 
 Finger motion demo:
 
-    bash /home/szy2025/Desktop/RealMan/launch_view.sh --demo
+    bash launch_view.sh --demo
 
 VNC server listens on localhost:5915. On Windows:
 
@@ -31,9 +30,26 @@ Model sources and limits:
 - Tactile sensor geometry included, but no calibrated tactile response or six-axis force sensor electronics.
 - No connection to physical robot hardware.
 
-Rebuild: conda activate realman-mujoco; python build_model.py
-Files: models/scene.xml, models/combined.urdf, validation.json, viewer.log.
+## Model build and repository layout
 
+Activate the environment, rebuild the model, and run the motion check from the repository root.
+
+```bash
+conda activate realman-mujoco
+python build_model.py
+python check_motion.py
+```
+
+| Path | Contents |
+| --- | --- |
+| [sources/](sources/) | Upstream URDFs, meshes, and source metadata |
+| [models/](models/) | Combined URDF, MuJoCo scenes, and assembled meshes |
+| [docs/model-validation/](docs/model-validation/) | Build report and recorded motion, mount, and arm replacement checks |
+| [docs/screenshots/](docs/screenshots/) | Recorded VNC views and joint 6 annotation |
+| [tools/legacy/](tools/legacy/) | Scripts from the initial model setup and troubleshooting |
+| [grasp_v2/](grasp_v2/) | Grasp training, evaluation, and released checkpoints |
+
+Server-local backups are in `backups/`, and archived setup logs are in `work/root-runtime/`. V2 writes runtime files within `grasp_v2/`.
 
 ## RGB-D grasp training
 Current pipeline: [RGB-D + 17 tactile regions (V2)](grasp_v2/README.zh-CN.md).

@@ -56,4 +56,7 @@ mujoco.mj_saveLastXML(str(P/'models/scene.xml'),m)
 for _ in range(5000): mujoco.mj_step(m,d)
 assert np.isfinite(d.qpos).all()
 report=dict(mujoco=mujoco.__version__,nq=m.nq,nv=m.nv,nu=m.nu,actuators=names,time=d.time,warnings=[int(x.number) for x in d.warning],max_abs_qpos=float(np.max(np.abs(d.qpos))))
-(P/'validation.json').write_text(json.dumps(report,indent=2)); print(report)
+report_dir = P / 'docs' / 'model-validation'
+report_dir.mkdir(parents=True, exist_ok=True)
+(report_dir / 'validation.json').write_text(json.dumps(report, indent=2))
+print(report)

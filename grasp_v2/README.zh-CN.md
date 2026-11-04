@@ -39,8 +39,10 @@
 
 ## 使用命令
 
+从仓库根目录运行以下命令。
+
 ```bash
-cd /home/szy2025/Desktop/RealMan/grasp_v2
+cd grasp_v2
 
 # 重新验证环境、传感器和随机脚本
 bash grasp.sh check
