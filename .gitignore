@@ -5,3 +5,17 @@ backups/
 
 # 下载不完整的压缩包（已解压的 sources/ 目录才是构建输入）
 sources/*.zip
+
+# Training runtime, caches, and local experiments
+/work/
+__pycache__/
+*.py[cod]
+*.npz
+*.npy
+*.jsonl
+*.monitor.csv
+**/live_status.json
+**/policy_play_status.json
+**/runs/
+**/checks/
+/grasp/*.png

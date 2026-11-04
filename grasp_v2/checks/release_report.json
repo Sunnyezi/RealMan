@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "observation_dim": 120,
+  "tactile_regions": 17,
+  "sensor_probe_passed": 17,
+  "random_script_successes": 20,
+  "random_script_trials": 20,
+  "policy_random_success_rate": 0.91,
+  "policy_random_episodes": 100,
+  "policy_ik_failures": 0,
+  "policy_ik_rejections": 0,
+  "episodes_with_action_projection": 100,
+  "object_center_x_m": 0.51,
+  "previous_object_center_x_m": 0.6,
+  "random_radius_xy_m": 0.05,
+  "minimum_corner_trajectory_margin_m": 0.008599251390646157,
+  "checkpoint": "runs/visual_touch_v2/best_policy.zip",
+  "checkpoint_validation": {
+    "timesteps": 0,
+    "success_rate": 1.0,
+    "mean_reward": 488.8529291798538,
+    "episodes": 2,
+    "seeds": [
+      71001,
+      71002
+    ],
+    "randomize": true
+  },
+  "notes": [
+    "17 native MuJoCo scalar touch sensors; approximate aggregate region forces, not calibrated physical sensor output.",
+    "Tactile collision skin uses a 1.5mm box layer at the source patch location.",
+    "The 91% result uses a workspace shifted 9cm toward the base; not the identical object-position distribution used by v1.",
+    "Safety projection remains active; zero IK rejections does not mean the policy never requests excessive motion."
+  ]
+}

@@ -33,3 +33,13 @@ Model sources and limits:
 
 Rebuild: conda activate realman-mujoco; python build_model.py
 Files: models/scene.xml, models/combined.urdf, validation.json, viewer.log.
+
+
+## RGB-D grasp training
+Current pipeline: [RGB-D + 17 tactile regions (V2)](grasp_v2/README.zh-CN.md).
+V2 adds native MuJoCo touch sensors, vision-relative grasp/lift goals, trajectory reachability checks and action projection. Its 120-dimensional policy achieved 91/100 on the recorded random-position evaluation, with zero IK rejections. The object center was moved 9 cm toward the base; this differs from the V1 absolute position distribution.
+
+Current VNC viewer: `grasp_v2/live.py`, displaying the validated random-position policy.
+Legacy fixed-position pipeline and documentation: [V1](grasp/README.zh-CN.md).
+
+Both pipelines provide `grasp.sh check`, `grasp.sh train`, and `grasp.sh eval` entry points. Validated checkpoints and normalization files are included; runtime logs and experimental runs remain local.

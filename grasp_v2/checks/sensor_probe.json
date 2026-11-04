@@ -1,0 +1,87 @@
+[
+  {
+    "region": "right_palm_force_sensor",
+    "force_N": 11.65448088166717,
+    "responded": true
+  },
+  {
+    "region": "right_thumb_force_sensor_2",
+    "force_N": 4.982636053725405,
+    "responded": true
+  },
+  {
+    "region": "right_thumb_force_sensor_3",
+    "force_N": 5.080019000501974,
+    "responded": true
+  },
+  {
+    "region": "right_thumb_force_sensor_4",
+    "force_N": 6.376811642111923,
+    "responded": true
+  },
+  {
+    "region": "right_thumb_force_sensor_1",
+    "force_N": 5.285793690128455,
+    "responded": true
+  },
+  {
+    "region": "right_index_force_sensor_2",
+    "force_N": 7.016141191685101,
+    "responded": true
+  },
+  {
+    "region": "right_index_force_sensor_3",
+    "force_N": 4.657260491035556,
+    "responded": true
+  },
+  {
+    "region": "right_index_force_sensor_1",
+    "force_N": 5.4687306860981595,
+    "responded": true
+  },
+  {
+    "region": "right_middle_force_sensor_2",
+    "force_N": 7.9422267747214175,
+    "responded": true
+  },
+  {
+    "region": "right_middle_force_sensor_3",
+    "force_N": 5.653869219914368,
+    "responded": true
+  },
+  {
+    "region": "right_middle_force_sensor_1",
+    "force_N": 6.503508157154308,
+    "responded": true
+  },
+  {
+    "region": "right_ring_force_sensor_2",
+    "force_N": 8.78336445531969,
+    "responded": true
+  },
+  {
+    "region": "right_ring_force_sensor_3",
+    "force_N": 6.748354453799436,
+    "responded": true
+  },
+  {
+    "region": "right_ring_force_sensor_1",
+    "force_N": 7.536490412704746,
+    "responded": true
+  },
+  {
+    "region": "right_little_force_sensor_2",
+    "force_N": 9.452040345904294,
+    "responded": true
+  },
+  {
+    "region": "right_little_force_sensor_3",
+    "force_N": 7.791235243896032,
+    "responded": true
+  },
+  {
+    "region": "right_little_force_sensor_1",
+    "force_N": 8.53338909576634,
+    "responded": true
+  }
+]

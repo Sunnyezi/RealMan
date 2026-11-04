@@ -1,0 +1,291 @@
+[
+  {
+    "region": "right_palm_force_sensor",
+    "site": "right_palm_force_sensor_zone",
+    "sensor": "right_palm_force_sensor_touch",
+    "local_center_m": [
+      8.121039718389511e-05,
+      0.000628411304205656,
+      -0.0005653519328916445
+    ],
+    "half_size_m": [
+      0.02599497961252928,
+      0.016036793891340495,
+      0.0029893663082038984
+    ],
+    "unit": "N",
+    "kind": "MuJoCo surface normal contact force; not actuator-force hardware calibration"
+  },
+  {
+    "region": "right_thumb_force_sensor_2",
+    "site": "right_thumb_force_sensor_2_zone",
+    "sensor": "right_thumb_force_sensor_2_touch",
+    "local_center_m": [
+      2.20924848690629e-05,
+      4.927744157612324e-05,
+      -0.0009754016355145723
+    ],
+    "half_size_m": [
+      0.004140135551802814,
+      0.00412329875305295,
+      0.003305124693317339
+    ],
+    "unit": "N",
+    "kind": "MuJoCo surface normal contact force; not actuator-force hardware calibration"
+  },
+  {
+    "region": "right_thumb_force_sensor_3",
+    "site": "right_thumb_force_sensor_3_zone",
+    "sensor": "right_thumb_force_sensor_3_touch",
+    "local_center_m": [
+      -9.494367986917496e-06,
+      -3.088475205004215e-05,
+      -0.0005980336718494073
+    ],
+    "half_size_m": [
+      0.006268963053822517,
+      0.008620896911248566,
+      0.003061609698808752
+    ],
+    "unit": "N",
+    "kind": "MuJoCo surface normal contact force; not actuator-force hardware calibration"
+  },
+  {
+    "region": "right_thumb_force_sensor_4",
+    "site": "right_thumb_force_sensor_4_zone",
+    "sensor": "right_thumb_force_sensor_4_touch",
+    "local_center_m": [
+      -1.232372596859932e-06,
+      0.00019611348398029804,
+      -0.0008293765276903287
+    ],
+    "half_size_m": [
+      0.004000003751367331,
+      0.0029450196996331215,
+      0.0032595450825756416
+    ],
+    "unit": "N",
+    "kind": "MuJoCo surface normal contact force; not actuator-force hardware calibration"
+  },
+  {
+    "region": "right_thumb_force_sensor_1",
+    "site": "right_thumb_force_sensor_1_zone",
+    "sensor": "right_thumb_force_sensor_1_touch",
+    "local_center_m": [
+      1.1506490409374237e-05,
+      1.0184012353420258e-05,
+      -0.0009663784585427493
+    ],
+    "half_size_m": [
+      0.0068350032195448876,
+      0.008890007458627225,
+      0.0034528734900522978
+    ],
+    "unit": "N",
+    "kind": "MuJoCo surface normal contact force; not actuator-force hardware calibration"
+  },
+  {
+    "region": "right_index_force_sensor_2",
+    "site": "right_index_force_sensor_2_zone",
+    "sensor": "right_index_force_sensor_2_touch",
+    "local_center_m": [
+      -4.218658432364464e-06,
+      4.6119559556245804e-05,
+      -0.0005556487594731152
+    ],
+    "half_size_m": [
+      0.006606184480711818,
+      0.008787662092596293,
+      0.002964913342613727
+    ],
+    "unit": "N",
+    "kind": "MuJoCo surface normal contact force; not actuator-force hardware calibration"
+  },
+  {
+    "region": "right_index_force_sensor_3",
+    "site": "right_index_force_sensor_3_zone",
+    "sensor": "right_index_force_sensor_3_touch",
+    "local_center_m": [
+      -1.6054953448474407e-05,
+      -0.0002417392679490149,
+      -0.0011085537262260914
+    ],
+    "half_size_m": [
+      0.004084757016040385,
+      0.0030637281122617424,
+      0.003717211911454797
+    ],
+    "unit": "N",
+    "kind": "MuJoCo surface normal contact force; not actuator-force hardware calibration"
+  },
+  {
+    "region": "right_index_force_sensor_1",
+    "site": "right_index_force_sensor_1_zone",
+    "sensor": "right_index_force_sensor_1_touch",
+    "local_center_m": [
+      2.6526395231485367e-06,
+      6.991112604737282e-05,
+      -0.0003871492081088945
+    ],
+    "half_size_m": [
+      0.006686419317498803,
+      0.008329375483095647,
+      0.00284365026850719
+    ],
+    "unit": "N",
+    "kind": "MuJoCo surface normal contact force; not actuator-force hardware calibration"
+  },
+  {
+    "region": "right_middle_force_sensor_2",
+    "site": "right_middle_force_sensor_2_zone",
+    "sensor": "right_middle_force_sensor_2_touch",
+    "local_center_m": [
+      -1.587904989719391e-07,
+      5.0119124352931976e-05,
+      -0.0005642684554914013
+    ],
+    "half_size_m": [
+      0.006397488828748465,
+      0.008683503907173873,
+      0.002955257550231181
+    ],
+    "unit": "N",
+    "kind": "MuJoCo surface normal contact force; not actuator-force hardware calibration"
+  },
+  {
+    "region": "right_middle_force_sensor_3",
+    "site": "right_middle_force_sensor_3_zone",
+    "sensor": "right_middle_force_sensor_3_touch",
+    "local_center_m": [
+      1.641456037759781e-07,
+      -0.0002747614635154605,
+      -0.0010605586285237223
+    ],
+    "half_size_m": [
+      0.003999999560415745,
+      0.0029501220667734742,
+      0.0036529740241821856
+    ],
+    "unit": "N",
+    "kind": "MuJoCo surface normal contact force; not actuator-force hardware calibration"
+  },
+  {
+    "region": "right_middle_force_sensor_1",
+    "site": "right_middle_force_sensor_1_zone",
+    "sensor": "right_middle_force_sensor_1_touch",
+    "local_center_m": [
+      1.555308699607849e-07,
+      6.993464194238186e-05,
+      -0.0003871492081088945
+    ],
+    "half_size_m": [
+      0.006435001105070114,
+      0.008139936788007618,
+      0.00284365026850719
+    ],
+    "unit": "N",
+    "kind": "MuJoCo surface normal contact force; not actuator-force hardware calibration"
+  },
+  {
+    "region": "right_ring_force_sensor_2",
+    "site": "right_ring_force_sensor_2_zone",
+    "sensor": "right_ring_force_sensor_2_touch",
+    "local_center_m": [
+      -8.464325219392776e-06,
+      4.553282633423805e-05,
+      -0.0005556487594731152
+    ],
+    "half_size_m": [
+      0.006742452573031187,
+      0.008879928220063449,
+      0.002964913342613727
+    ],
+    "unit": "N",
+    "kind": "MuJoCo surface normal contact force; not actuator-force hardware calibration"
+  },
+  {
+    "region": "right_ring_force_sensor_3",
+    "site": "right_ring_force_sensor_3_zone",
+    "sensor": "right_ring_force_sensor_3_touch",
+    "local_center_m": [
+      1.1521740816533566e-05,
+      -0.00024199229665100574,
+      -0.0011085537262260914
+    ],
+    "half_size_m": [
+      0.004124700509943068,
+      0.003129391534253955,
+      0.003717211911454797
+    ],
+    "unit": "N",
+    "kind": "MuJoCo surface normal contact force; not actuator-force hardware calibration"
+  },
+  {
+    "region": "right_ring_force_sensor_1",
+    "site": "right_ring_force_sensor_1_zone",
+    "sensor": "right_ring_force_sensor_1_touch",
+    "local_center_m": [
+      -3.5902485251426697e-06,
+      6.986968219280243e-05,
+      -0.0003871492081088945
+    ],
+    "half_size_m": [
+      0.006809421185404062,
+      0.008420615758746863,
+      0.00284365026850719
+    ],
+    "unit": "N",
+    "kind": "MuJoCo surface normal contact force; not actuator-force hardware calibration"
+  },
+  {
+    "region": "right_little_force_sensor_2",
+    "site": "right_little_force_sensor_2_zone",
+    "sensor": "right_little_force_sensor_2_touch",
+    "local_center_m": [
+      -1.2309756129980087e-06,
+      4.78220172226429e-05,
+      -0.0006159008044051006
+    ],
+    "half_size_m": [
+      0.00721614814735949,
+      0.009234903682023288,
+      0.0030090645373566077
+    ],
+    "unit": "N",
+    "kind": "MuJoCo surface normal contact force; not actuator-force hardware calibration"
+  },
+  {
+    "region": "right_little_force_sensor_3",
+    "site": "right_little_force_sensor_3_zone",
+    "sensor": "right_little_force_sensor_3_touch",
+    "local_center_m": [
+      4.655076190829277e-05,
+      -0.00032072130125015974,
+      -0.0008990156638901681
+    ],
+    "half_size_m": [
+      0.004236629534512758,
+      0.0033286227369681,
+      0.00356528691877611
+    ],
+    "unit": "N",
+    "kind": "MuJoCo surface normal contact force; not actuator-force hardware calibration"
+  },
+  {
+    "region": "right_little_force_sensor_1",
+    "site": "right_little_force_sensor_1_zone",
+    "sensor": "right_little_force_sensor_1_touch",
+    "local_center_m": [
+      -7.324386388063431e-06,
+      6.957771256566048e-05,
+      -0.0003871492081088945
+    ],
+    "half_size_m": [
+      0.007167093757539988,
+      0.008679981645196677,
+      0.00284365026850719
+    ],
+    "unit": "N",
+    "kind": "MuJoCo surface normal contact force; not actuator-force hardware calibration"
+  }
+]

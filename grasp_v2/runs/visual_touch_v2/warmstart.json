@@ -1,0 +1,30 @@
+[
+  {
+    "round": 0,
+    "successes": 8,
+    "episodes": 8,
+    "samples": 1221,
+    "mse": 0.0002581779262982309
+  },
+  {
+    "round": 1,
+    "successes": 8,
+    "episodes": 8,
+    "samples": 2632,
+    "mse": 0.001705753500573337
+  },
+  {
+    "round": 2,
+    "successes": 6,
+    "episodes": 8,
+    "samples": 4194,
+    "mse": 0.0010144875850528479
+  },
+  {
+    "round": 3,
+    "successes": 0,
+    "episodes": 8,
+    "samples": 6084,
+    "mse": 0.002131836721673608
+  }
+]

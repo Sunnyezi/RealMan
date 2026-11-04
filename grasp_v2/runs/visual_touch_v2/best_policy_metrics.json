@@ -1,0 +1,11 @@
+{
+  "timesteps": 0,
+  "success_rate": 1.0,
+  "mean_reward": 488.8529291798538,
+  "episodes": 2,
+  "seeds": [
+    71001,
+    71002
+  ],
+  "randomize": true
+}

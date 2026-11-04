@@ -1,0 +1,156 @@
+{
+  "total": 120,
+  "blocks": [
+    {
+      "name": "original_robot_and_controller_state",
+      "start": 0,
+      "stop": 79
+    },
+    {
+      "name": "touch_force_N_div_10",
+      "start": 79,
+      "stop": 96
+    },
+    {
+      "name": "touch_contact_flags",
+      "start": 96,
+      "stop": 113
+    },
+    {
+      "name": "visual_grasp_goal_error_xyz",
+      "start": 113,
+      "stop": 116
+    },
+    {
+      "name": "visual_lift_goal_error_xyz",
+      "start": 116,
+      "stop": 119
+    },
+    {
+      "name": "trajectory_valid",
+      "start": 119,
+      "stop": 120
+    }
+  ],
+  "touch_channels": [
+    {
+      "index": 0,
+      "name": "right_palm_force_sensor",
+      "sensor": "right_palm_force_sensor_touch",
+      "force_observation_index": 79,
+      "contact_observation_index": 96
+    },
+    {
+      "index": 1,
+      "name": "right_thumb_force_sensor_2",
+      "sensor": "right_thumb_force_sensor_2_touch",
+      "force_observation_index": 80,
+      "contact_observation_index": 97
+    },
+    {
+      "index": 2,
+      "name": "right_thumb_force_sensor_3",
+      "sensor": "right_thumb_force_sensor_3_touch",
+      "force_observation_index": 81,
+      "contact_observation_index": 98
+    },
+    {
+      "index": 3,
+      "name": "right_thumb_force_sensor_4",
+      "sensor": "right_thumb_force_sensor_4_touch",
+      "force_observation_index": 82,
+      "contact_observation_index": 99
+    },
+    {
+      "index": 4,
+      "name": "right_thumb_force_sensor_1",
+      "sensor": "right_thumb_force_sensor_1_touch",
+      "force_observation_index": 83,
+      "contact_observation_index": 100
+    },
+    {
+      "index": 5,
+      "name": "right_index_force_sensor_2",
+      "sensor": "right_index_force_sensor_2_touch",
+      "force_observation_index": 84,
+      "contact_observation_index": 101
+    },
+    {
+      "index": 6,
+      "name": "right_index_force_sensor_3",
+      "sensor": "right_index_force_sensor_3_touch",
+      "force_observation_index": 85,
+      "contact_observation_index": 102
+    },
+    {
+      "index": 7,
+      "name": "right_index_force_sensor_1",
+      "sensor": "right_index_force_sensor_1_touch",
+      "force_observation_index": 86,
+      "contact_observation_index": 103
+    },
+    {
+      "index": 8,
+      "name": "right_middle_force_sensor_2",
+      "sensor": "right_middle_force_sensor_2_touch",
+      "force_observation_index": 87,
+      "contact_observation_index": 104
+    },
+    {
+      "index": 9,
+      "name": "right_middle_force_sensor_3",
+      "sensor": "right_middle_force_sensor_3_touch",
+      "force_observation_index": 88,
+      "contact_observation_index": 105
+    },
+    {
+      "index": 10,
+      "name": "right_middle_force_sensor_1",
+      "sensor": "right_middle_force_sensor_1_touch",
+      "force_observation_index": 89,
+      "contact_observation_index": 106
+    },
+    {
+      "index": 11,
+      "name": "right_ring_force_sensor_2",
+      "sensor": "right_ring_force_sensor_2_touch",
+      "force_observation_index": 90,
+      "contact_observation_index": 107
+    },
+    {
+      "index": 12,
+      "name": "right_ring_force_sensor_3",
+      "sensor": "right_ring_force_sensor_3_touch",
+      "force_observation_index": 91,
+      "contact_observation_index": 108
+    },
+    {
+      "index": 13,
+      "name": "right_ring_force_sensor_1",
+      "sensor": "right_ring_force_sensor_1_touch",
+      "force_observation_index": 92,
+      "contact_observation_index": 109
+    },
+    {
+      "index": 14,
+      "name": "right_little_force_sensor_2",
+      "sensor": "right_little_force_sensor_2_touch",
+      "force_observation_index": 93,
+      "contact_observation_index": 110
+    },
+    {
+      "index": 15,
+      "name": "right_little_force_sensor_3",
+      "sensor": "right_little_force_sensor_3_touch",
+      "force_observation_index": 94,
+      "contact_observation_index": 111
+    },
+    {
+      "index": 16,
+      "name": "right_little_force_sensor_1",
+      "sensor": "right_little_force_sensor_1_touch",
+      "force_observation_index": 95,
+      "contact_observation_index": 112
+    }
+  ]
+}
