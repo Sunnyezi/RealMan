@@ -55,3 +55,11 @@ bash grasp/grasp.sh train --randomize --warmstart --steps 300000 --envs 4 --run 
 ## GPU训练
 
 训练默认使用 `cuda:0`，预训练和PPO共用GPU设备；CUDA不可用会报错。安装、续训及VNC回放命令见 [GPU训练说明](GPU.zh-CN.md)。物理限制与未标定项见 [力矩核对](../docs/physical_limits.zh-CN.md)。
+
+## 单窗口多环境阵列
+
+训练默认使用 subproc 后端和 4 个独立环境，可通过 `--envs 16` 启用 16 个进程，状态统一汇总到一个 Viewer。共享模型后端可通过 `--backend shared` 选择。使用 `live --envs 16` 查看 4×4 阵列；架构与回放命令见 [共享模型说明](SHARED.zh-CN.md)。
+
+线程竞争诊断、默认后端修正和实测数据见 [卡顿诊断与修复](PERFORMANCE.zh-CN.md)。
+
+Viewer 显示网格缓存、交互优化和面板说明见 [可见窗口说明](VIEWER.zh-CN.md)。

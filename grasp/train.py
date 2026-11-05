@@ -4,8 +4,7 @@ from pathlib import Path
 import argparse,json,time
 import numpy as np,torch
 from stable_baselines3 import PPO
-from stable_baselines3.common.vec_env import SubprocVecEnv,VecNormalize
-from stable_baselines3.common.monitor import Monitor
+from stable_baselines3.common.vec_env import VecNormalize
 from stable_baselines3.common.callbacks import BaseCallback,CheckpointCallback,CallbackList
 from compute import resolve_device,compute_info
 from env import P
@@ -64,7 +63,7 @@ class SuccessCheckpoint(BaseCallback):
  def _on_training_end(self):self.assess('ppo_final')
 
 def main():
- p=argparse.ArgumentParser();p.add_argument('--device',default='cuda:0',help='Policy device: cuda:N (default cuda:0) or cpu');p.add_argument('--learning-rate',type=float);p.add_argument('--action-std',type=float);p.add_argument('--no-live',action='store_true');p.add_argument('--warmstart',action='store_true');p.add_argument('--steps',type=int,default=300000);p.add_argument('--envs',type=int,default=4);p.add_argument('--seed',type=int,default=42);p.add_argument('--randomize',action='store_true');p.add_argument('--resume',type=Path);p.add_argument('--run',type=Path);p.add_argument('--domain-profile',type=Path);args=p.parse_args()
+ p=argparse.ArgumentParser();p.add_argument('--backend',choices=['shared','subproc'],default='subproc');p.add_argument('--physics-threads',type=int,default=1);p.add_argument('--device',default='cuda:0',help='Policy device: cuda:N (default cuda:0) or cpu');p.add_argument('--learning-rate',type=float);p.add_argument('--action-std',type=float);p.add_argument('--no-live',action='store_true');p.add_argument('--warmstart',action='store_true');p.add_argument('--steps',type=int,default=300000);p.add_argument('--envs',type=int,default=4);p.add_argument('--seed',type=int,default=42);p.add_argument('--randomize',action='store_true');p.add_argument('--resume',type=Path);p.add_argument('--run',type=Path);p.add_argument('--domain-profile',type=Path);args=p.parse_args()
  device=resolve_device(args.device);print('Compute',compute_info(device),flush=True)
  if args.warmstart and args.resume:raise SystemExit('Choose warmstart or resume, not both')
  if args.steps<=0 or args.envs<=0:raise SystemExit('steps/envs must be positive')
@@ -75,11 +74,18 @@ def main():
  g=json.load(open(gate))
  if not g.get('passed') or g.get('fingerprint')!=fingerprint():raise SystemExit('Training blocked: missing/stale grasp gate. Rerun check.py.')
  profile=load_profile(args.domain_profile) if args.domain_profile else None
+ if args.backend=='shared' and profile:raise SystemExit('Per-environment model randomization requires --backend subproc')
+ if args.physics_threads<1:raise SystemExit('physics-threads must be positive')
  torch.set_num_threads(1)
  run=args.run or P/'runs'/time.strftime('%Y%m%d_%H%M%S');run=run.resolve();run.mkdir(parents=True,exist_ok=False)
  stream=False if args.no_live else run/'live_state.npz'
- factories=[lambda i=i:Monitor(make_env(profile,randomize=args.randomize,publish=stream if i==0 else False),filename=str(run/f'worker_{i}')) for i in range(args.envs)]
- base=SubprocVecEnv(factories,start_method='spawn');base.seed(args.seed)
+ if args.backend=='shared':
+  from shared_vec import SharedVecEnv
+  base=SharedVecEnv(args.envs,randomize=args.randomize,stream=stream,threads=args.physics_threads,monitor_dir=run)
+ else:
+  from parallel_vec import ParallelGridVec
+  base=ParallelGridVec(args.envs,randomize=args.randomize,stream=stream,profile=profile,monitor_dir=run)
+ base.seed(args.seed)
  if args.resume:
   meta=json.load(open(args.resume.parent/'run.json'))
   if meta['fingerprint']!=fingerprint():raise SystemExit('Resume blocked: environment fingerprint changed')
@@ -100,7 +106,7 @@ def main():
  if args.learning_rate is not None:model.learning_rate=args.learning_rate;model.lr_schedule=get_schedule_fn(args.learning_rate)
  if args.action_std is not None:
   with torch.no_grad():model.policy.log_std.fill_(float(np.log(args.action_std)))
- manifest=dict(compute=compute_info(model.device),domain_profile=profile,learning_rate=float(model.lr_schedule(1.)),action_std=float(torch.exp(model.policy.log_std).mean().detach()),warmstart=args.warmstart,seed=args.seed,randomize=args.randomize,envs=args.envs,steps=args.steps,fingerprint=fingerprint(),config=json.load(open(P/'config.json')),resume=str(args.resume) if args.resume else None)
+ manifest=dict(backend=args.backend,physics_threads=args.physics_threads,compute=compute_info(model.device),domain_profile=profile,learning_rate=float(model.lr_schedule(1.)),action_std=float(torch.exp(model.policy.log_std).mean().detach()),warmstart=args.warmstart,seed=args.seed,randomize=args.randomize,envs=args.envs,steps=args.steps,fingerprint=fingerprint(),config=json.load(open(P/'config.json')),resume=str(args.resume) if args.resume else None)
  (run/'run.json').write_text(json.dumps(manifest,indent=2));(run/'config.json').write_text((P/'config.json').read_text())
  cb=CallbackList([Metrics(run/'metrics.jsonl'),SuccessCheckpoint(run,env,args.randomize,profile),CheckpointCallback(save_freq=max(1,10000//args.envs),save_path=str(run),name_prefix='checkpoint',save_vecnormalize=True)])
  base.seed(args.seed*1000)

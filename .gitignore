@@ -15,6 +15,7 @@ __pycache__/
 *.jsonl
 *.monitor.csv
 **/live_status.json
+**/grid_status.json
 **/policy_play_status.json
 **/runs/
 **/checks/

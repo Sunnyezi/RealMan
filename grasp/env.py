@@ -11,10 +11,10 @@ from planner import Planner
 P=Path(__file__).resolve().parent
 class GraspEnv(gym.Env):
  metadata={'render_modes':['rgb_array'],'render_fps':20}
- def __init__(self,randomize=False,publish=False,render_mode=None):
-  self.m=mujoco.MjModel.from_xml_path(str(P/'scene.xml'));self.d=mujoco.MjData(self.m);self.ikd=mujoco.MjData(self.m)
+ def __init__(self,randomize=False,publish=False,render_mode=None,model=None,renderer=None):
+  self.m=model if model is not None else mujoco.MjModel.from_xml_path(str(P/'scene.xml'));self.d=mujoco.MjData(self.m);self.ikd=mujoco.MjData(self.m)
   self.cfg=json.load(open(P/'config.json'));self.randomize=randomize;self.publish=P/'live_state.npz' if publish is True else publish;self.render_mode=render_mode
-  self.vision=RGBD(self.m);self.overview=None;self.planner=Planner(self.m,self.cfg)
+  self.vision=RGBD(self.m,renderer=renderer);self.overview=None;self.planner=Planner(self.m,self.cfg)
   self.sensor_map=json.load(open(P/'sensor_map.json'));self.sensor_adrs=np.array([self.m.sensor_adr[mujoco.mj_name2id(self.m,mujoco.mjtObj.mjOBJ_SENSOR,r['sensor'])] for r in self.sensor_map]);self.touch_force=np.zeros(17);self.touch_flags=np.zeros(17)
   self.bid=mujoco.mj_name2id(self.m,mujoco.mjtObj.mjOBJ_BODY,'right_base_link');self.ob=mujoco.mj_name2id(self.m,mujoco.mjtObj.mjOBJ_BODY,'object');self.og=mujoco.mj_name2id(self.m,mujoco.mjtObj.mjOBJ_GEOM,'object_geom');self.oj=mujoco.mj_name2id(self.m,mujoco.mjtObj.mjOBJ_JOINT,'object_free');self.oa=self.m.jnt_qposadr[self.oj]
   self.arm=np.array([mujoco.mj_name2id(self.m,mujoco.mjtObj.mjOBJ_ACTUATOR,f'joint_{i}_position') for i in range(1,7)])
@@ -77,7 +77,7 @@ class GraspEnv(gym.Env):
   dropped=bool(self.d.xpos[self.ob,2]<self.cfg['object_xyz'][2]-.04 or (self.ever_lifted and height<.005))
   warnings=int(sum(w.number for w in self.d.warning));success=self.hold>=2.-1e-8
   return dict(is_success=bool(success),height=height,hold_seconds=self.hold,hand_contacts=len(fingers),table_collision=table_hit,dropped=dropped,warnings=warnings,ik_failures=self.ik_failures,vision_lost_rate=self.lost/max(1,self.steps),max_height=self.max_height,ik_rejections=self.ik_rejections,action_projections=self.action_projections,plan_valid=bool(self.plan_valid),plan_rejections=self.plan_rejections,touch_force_N=self.touch_force.tolist(),touch_flags=self.touch_flags.tolist())
- def step(self,action):
+ def _advance(self,action):
   action=np.asarray(action,dtype=np.float64)
   if action.shape!=(9,) or not np.isfinite(action).all():raise ValueError('Action must be finite and have shape (9,)')
   action=np.clip(action,-1,1)
@@ -103,11 +103,16 @@ class GraspEnv(gym.Env):
   for _ in range(25):
    mujoco.mj_step(self.m,self.d);force_sum+=self.d.sensordata[self.sensor_adrs]
   self._update_touch(force_sum/25)
+  return action,oldaction,rejected,projected
+ def _finish(self,context):
+  action,oldaction,rejected,projected=context
   self.steps+=1;self._vision();self.lost+=not self.vision.visible;info=self._metrics()
   center=self.d.xpos[self.bid]+self.d.xmat[self.bid].reshape(3,3)@R.T@(np.array(self.cfg['object_xyz'])-np.array(self.cfg['grasp_xyz']));dist=np.linalg.norm(center-self.d.xpos[self.ob])
   reward=2*np.exp(-15*dist)+.25*min(info['hand_contacts'],3)+10*np.clip(info['height'],0,.12)+.5*(self.hold>0)+20*info['is_success']-.01*np.mean(action**2)-.02*np.mean((action-oldaction)**2)-.5*info['table_collision']-10*info['dropped']-.2*rejected-.05*projected-2*max(0,info['height']-.115)
   bad=bool(info['warnings'] or not np.isfinite(self.d.qpos).all());info['physics_failure']=bad;self._publish()
   return self._obs(),float(reward),bool(info['is_success'] or info['dropped'] or bad),bool(self.steps>=self.cfg['horizon']),info
+ def step(self,action):
+  return self._finish(self._advance(action))
  def render(self):
   if self.overview is None:self.overview=mujoco.Renderer(self.m,480,640)
   opt=mujoco.MjvOption();opt.geomgroup[3]=0;self.overview.update_scene(self.d,camera='overview',scene_option=opt);return self.overview.render().copy()

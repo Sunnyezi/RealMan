@@ -7,6 +7,7 @@ cuda-pathfinder==1.8.4
 cuda-toolkit==13.0.3.0
 etils==1.15.0
 Farama-Notifications==0.0.6
+fast-simplification==0.2.0
 filelock==4.2.8
 fsspec==2026.9.0
 glfw==2.11.0

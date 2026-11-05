@@ -10,15 +10,15 @@ case "$mode" in
   export DISPLAY=${DISPLAY:-:15}
   export XAUTHORITY="${XAUTHORITY:-$HOME/.Xauthority}"
   export MUJOCO_GL=glfw LIBGL_ALWAYS_SOFTWARE=1
-  exec python live.py "$@";;
+  exec python grid_live.py "$@";;
  demo)
   export MUJOCO_GL=egl
   unset LIBGL_ALWAYS_SOFTWARE
   exec python validate_script.py --live-loop "$@";;
- check|train|eval|benchmark|deploy)
+ check|train|eval|grid-eval|benchmark|deploy)
   export MUJOCO_GL=egl
   unset LIBGL_ALWAYS_SOFTWARE
-  case "$mode" in check) script=check.py;; train) script=train.py;; eval) script=evaluate.py;; benchmark) script=benchmark.py;; deploy) script=deployment.py;; esac
+  case "$mode" in check) script=check.py;; train) script=train.py;; eval) script=evaluate.py;; grid-eval) script=grid_play.py;; benchmark) script=benchmark.py;; deploy) script=deployment.py;; esac
   exec python "$script" "$@";;
- *) echo 'Usage: bash grasp.sh {check|live|demo|train|eval|benchmark|deploy} [options]';exit 2;;
+ *) echo 'Usage: bash grasp.sh {check|live|demo|train|eval|grid-eval|benchmark|deploy} [options]';exit 2;;
 esac
