@@ -28,6 +28,8 @@ def main() -> None:
     parser.add_argument("--steps", type=int, default=30000)
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--checkpoint")
+    parser.add_argument("--init-checkpoint", type=Path)
+    parser.add_argument("--peak-lr", type=float, default=2e-5)
     parser.add_argument("--port", type=int, default=8000)
     args = parser.parse_args()
     from adapter import training_config
@@ -38,6 +40,17 @@ def main() -> None:
         assets_base_dir=str(ROOT / "outputs/openpi_assets"),
         checkpoint_base_dir=str(ROOT / "checkpoints"),
     )
+    if args.init_checkpoint:
+        from openpi.training import weight_loaders
+        if args.resume or not (args.init_checkpoint / "params").is_dir():
+            parser.error("Warm start needs an existing params directory and cannot use --resume")
+        cfg = replace(cfg, weight_loader=weight_loaders.CheckpointWeightLoader(str(args.init_checkpoint.resolve()/"params")))
+    if args.mode == "train" and args.peak_lr != 2e-5:
+        from openpi.training import optimizer
+        if not 0 < args.peak_lr <= 2e-5:
+            parser.error("Peak LR must be in (0,2e-5]")
+        cfg = replace(cfg, lr_schedule=optimizer.CosineDecaySchedule(warmup_steps=100,
+                      peak_lr=args.peak_lr, decay_steps=args.steps, decay_lr=args.peak_lr*.1))
     if args.mode == "norm":
         from openpi.training import config
 
@@ -67,7 +80,8 @@ def main() -> None:
             "simulation_fingerprint": fingerprint(),
             "adapter_sha256": hashlib.sha256((ROOT / "adapter.py").read_bytes()).hexdigest(),
             "action_dim": 12, "steps": args.steps, "batch_size": args.batch_size,
-            "base_weights": "gs://openpi-assets/checkpoints/pi05_base/params",
+            "base_weights": str(args.init_checkpoint.resolve()/"params") if args.init_checkpoint else "gs://openpi-assets/checkpoints/pi05_base/params",
+            "warm_started": args.init_checkpoint is not None, "peak_lr": args.peak_lr,
             "task": "pick up and hold; not pick and place", "simulation_only": True,
         })
         load_script("train").main(cfg)

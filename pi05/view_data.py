@@ -7,6 +7,7 @@ import time
 import numpy as np
 
 from pipeline import RGBEnv, validate_episode
+from recovery import restore_initial
 
 
 def main() -> None:
@@ -23,6 +24,8 @@ def main() -> None:
             for path in episodes:
                 metadata = validate_episode(path)
                 env.reset(metadata["seed"])
+                if (path/"initial_state.npz").exists():
+                    restore_initial(env, path/"initial_state.npz")
                 with np.load(path / "trajectory.npz", allow_pickle=False) as data:
                     for action in data["actions"]:
                         start = time.monotonic()

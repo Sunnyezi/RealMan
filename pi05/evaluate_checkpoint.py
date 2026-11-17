@@ -23,9 +23,11 @@ def main() -> None:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--count", type=int, default=100)
     parser.add_argument("--split", choices=["validation", "test"], default="validation")
+    parser.add_argument("--execution", choices=["hybrid", "policy"], default="hybrid")
+    parser.add_argument("--start-index", type=int, default=0)
     parser.add_argument("--port", type=int, default=8095)
     args = parser.parse_args()
-    if args.count <= 0 or not args.checkpoint.is_dir() or args.output.exists():
+    if args.count <= 0 or args.start_index < 0 or args.start_index+args.count > 90000 or not args.checkpoint.is_dir() or args.output.exists():
         parser.error("Need an existing checkpoint, positive count and unused output directory")
     with socket.socket() as probe:
         probe.bind(("127.0.0.1", args.port))
@@ -61,7 +63,8 @@ def main() -> None:
                 raise TimeoutError("Policy server did not become ready")
             with (output / "evaluation.log").open("w") as evaluation_log:
                 started = time.monotonic()
-                subprocess.run(["bash", str(ROOT / "evaluate.sh"), "--split", args.split,
+                subprocess.run(["bash", str(ROOT / ("evaluate_policy.sh" if args.execution == "policy" else "evaluate.sh")), "--split", args.split,
+                                "--start-index", str(args.start_index),
                                 "--count", str(args.count), "--port", str(args.port),
                                 "--output", str(output / "results"), "--stream", str(stream)],
                                cwd=ROOT.parent, env=environment, stdout=evaluation_log,
@@ -87,7 +90,8 @@ def main() -> None:
                            checkpoint=str(args.checkpoint.resolve()))
             write_json(summary_path, summary)
             write_json(output / "checkpoint.json", {"checkpoint": str(args.checkpoint.resolve()),
-                       "repo_id": args.repo_id, "split": args.split, "episodes": args.count})
+                       "repo_id": args.repo_id, "split": args.split, "episodes": args.count,
+                       "execution": args.execution, "start_index": args.start_index})
         finally:
             for process in reversed(processes):
                 if process.poll() is None:

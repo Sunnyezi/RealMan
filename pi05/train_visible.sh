@@ -32,5 +32,9 @@ for _ in {1..60}; do
   sleep 0.5
 done
 [[ "$READY" == 1 ]] || { echo "Viewer did not receive fresh demonstration frames" >&2; exit 1; }
+EXTRA=()
+if [[ -n "${PI05_INIT_CHECKPOINT:-}" ]]; then
+  EXTRA+=(--init-checkpoint "$PI05_INIT_CHECKPOINT" --peak-lr "${PI05_PEAK_LR:-1e-5}")
+fi
 "$OPENPI_PYTHON" openpi_run.py train --repo-id "$REPO" --experiment "$EXPERIMENT" \
-  --steps "$STEPS" --batch-size "$BATCH" 2>&1 | tee "$RUN/train.log"
+  --steps "$STEPS" --batch-size "$BATCH" "${EXTRA[@]}" 2>&1 | tee "$RUN/train.log"
