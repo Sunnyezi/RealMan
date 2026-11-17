@@ -50,7 +50,7 @@ def main() -> None:
         if not 0 < args.peak_lr <= 2e-5:
             parser.error("Peak LR must be in (0,2e-5]")
         cfg = replace(cfg, lr_schedule=optimizer.CosineDecaySchedule(warmup_steps=100,
-                      peak_lr=args.peak_lr, decay_steps=args.steps, decay_lr=args.peak_lr*.1))
+                      peak_lr=args.peak_lr, decay_steps=max(101, args.steps), decay_lr=args.peak_lr*.1))
     if args.mode == "norm":
         from openpi.training import config
 
@@ -82,6 +82,7 @@ def main() -> None:
             "action_dim": 12, "steps": args.steps, "batch_size": args.batch_size,
             "base_weights": str(args.init_checkpoint.resolve()/"params") if args.init_checkpoint else "gs://openpi-assets/checkpoints/pi05_base/params",
             "warm_started": args.init_checkpoint is not None, "peak_lr": args.peak_lr,
+            "runner_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
             "task": "pick up and hold; not pick and place", "simulation_only": True,
         })
         load_script("train").main(cfg)
