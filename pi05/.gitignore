@@ -1,0 +1,8 @@
+vendor/
+data/
+outputs/
+runs/
+checkpoints/
+__pycache__/
+*.log
+*.pid

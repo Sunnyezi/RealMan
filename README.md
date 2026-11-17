@@ -58,3 +58,7 @@ The arm base and the cube share the ground plane at `z = 0`. The grasp pipeline 
 Start the VNC viewer with `bash grasp/grasp.sh live` and the scripted grasp loop with `bash grasp/grasp.sh demo`. The checkpoints in `grasp/runs/visual_touch/` were trained on the raised-platform scene. Training or evaluating a policy for the floor scene requires a checkpoint produced for that scene.
 
 CUDA training is the default for the grasp policy. See [GPU setup and commands](grasp/GPU.zh-CN.md) and [physical limit provenance](docs/physical_limits.zh-CN.md).
+
+## π0.5 visual imitation
+
+The independent [π0.5 pipeline](pi05/README.zh-CN.md) records two RGB cameras and measured joints, fine-tunes `pi05_base` with JAX LoRA, and executes twelve absolute arm/hand joint targets. It reuses the grasp contact scene. The current pilot task is cube pickup and stable holding; pick-and-place and sim2real remain separate milestones. See the [measured implementation report](pi05/IMPLEMENTATION_REPORT.zh-CN.md).

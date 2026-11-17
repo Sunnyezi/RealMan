@@ -1,0 +1,80 @@
+{
+  "action_dim": 12,
+  "state_dim": 12,
+  "units": "radians",
+  "control_hz": 20,
+  "physics_hz": 500,
+  "action_horizon": 10,
+  "execute_steps": 2,
+  "cameras": [
+    "overview",
+    "rgbd"
+  ],
+  "active_joint_order": [
+    "joint_1",
+    "joint_2",
+    "joint_3",
+    "joint_4",
+    "joint_5",
+    "joint_6",
+    "right_thumb_1_joint",
+    "right_thumb_2_joint",
+    "right_index_1_joint",
+    "right_middle_1_joint",
+    "right_ring_1_joint",
+    "right_little_1_joint"
+  ],
+  "limits_rad": [
+    [
+      -3.106,
+      3.106
+    ],
+    [
+      -2.2689,
+      2.2689
+    ],
+    [
+      -2.356,
+      2.356
+    ],
+    [
+      -3.106,
+      3.106
+    ],
+    [
+      -2.234,
+      2.234
+    ],
+    [
+      -6.28,
+      6.28
+    ],
+    [
+      0.0,
+      1.1641
+    ],
+    [
+      0.0,
+      0.5864
+    ],
+    [
+      0.0,
+      1.4381
+    ],
+    [
+      0.0,
+      1.4381
+    ],
+    [
+      0.0,
+      1.4381
+    ],
+    [
+      0.0,
+      1.4381
+    ]
+  ],
+  "simulation_fingerprint": "8bcb9f6cfc37f031e802804a03e08067621fa5244d882d21e09cab9224881c8f",
+  "target_hardware": "RM65-6F-V + RH56DFTP-2R",
+  "asset_status": "provisional RM65-6FB-V and RH56DFTP right"
+}
