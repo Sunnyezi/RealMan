@@ -84,7 +84,7 @@ def worker(spec_path: Path) -> None:
                     stage('target_closure_pilot')
                     pilot = corrections/'pilot'
                     command([sim, str(ROOT/'collect_recovery.py'), '--target-closure',
-                             '--count', '8', '--max-attempts', '24', '--start-index', '64000',
+                             '--count', '8', '--max-attempts', '24', '--start-index', '64400',
                              '--output', str(pilot), '--stream', str(run/'collection_state.npz')], 'pilot.log')
                     command([sim, str(ROOT/'check_recovery.py'), '--raw', str(pilot), '--samples', '4',
                              '--output', str(run/'pilot_replay.json')], 'pilot_replay.log')
@@ -94,7 +94,7 @@ def worker(spec_path: Path) -> None:
                     logs.append(log)
                     args = [sim, str(ROOT/'collect_recovery.py'), '--output', str(corrections/f'worker_{idx}'),
                             '--count', str(per_worker), '--max-attempts', str(per_worker*(3 if target_closure else 2)),
-                            '--start-index', str((65000 if target_closure else 50000)+idx*1000)]
+                            '--start-index', str((65400 if target_closure else 50000)+idx*1000)]
                     if target_closure:
                         args.append('--target-closure')
                     if idx == 0:

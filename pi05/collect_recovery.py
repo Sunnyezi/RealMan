@@ -14,14 +14,15 @@ from recovery import RecoveryExpert, save_initial
 
 def pregrasp_trigger(palm: np.ndarray, grasp: np.ndarray, index_target: float,
                      near_wait: int, steps: int, deadline: int) -> tuple[str | None, int]:
-    """Find a missed or imminent closure using robot pose and the initial RGB-D estimate."""
+    """Intervene on a missed closure before the hand finishes descending."""
     lateral = np.linalg.norm(palm[:2]-grasp[:2])
     vertical = palm[2]-grasp[2]
-    near = lateral <= .022 and -.030 <= vertical <= .018
+    near = lateral <= .022 and -.023 <= vertical <= .018
+    approaching = lateral <= .028 and -.023 <= vertical <= .040
     if index_target >= .12 and not near:
         return 'closure_before_alignment', 0
-    near_wait = near_wait+1 if near and index_target < .12 else 0
-    if near_wait >= 8:
+    near_wait = near_wait+1 if approaching and index_target < .12 else 0
+    if near_wait >= 3 or (near and index_target < .12):
         return 'near_without_closure', near_wait
     if steps >= deadline and not near:
         return 'approach_not_aligned', near_wait
@@ -81,6 +82,8 @@ def main() -> None:
                         trigger, near_wait = pregrasp_trigger(
                             e.d.xpos[e.bid], visual_grasp, e.d.ctrl[env.ids[8]],
                             near_wait, step+1, frame_limit)
+                        if info['table_collision'] and trigger is None:
+                            trigger = 'ground_contact_before_closure'
                         if trigger is not None:
                             break
                     elif info['is_success'] or info['physics_failure']:
