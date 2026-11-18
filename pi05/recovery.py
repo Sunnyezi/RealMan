@@ -37,7 +37,7 @@ def restore_initial(env: RGBEnv, path: Path) -> None:
 
 class RecoveryExpert:
     """Reopen/retract/re-estimate after misses; stabilize an already bilateral grip."""
-    def __init__(self, env: RGBEnv, thumb: np.ndarray, index: np.ndarray):
+    def __init__(self, env: RGBEnv, thumb: np.ndarray, index: np.ndarray, *, direct_align: bool = False):
         self.env, self.thumb, self.index = env, thumb, index
         e = env.base
         # Explicitly use the initial RGB-D estimate for retreat height, then refresh after opening.
@@ -71,6 +71,10 @@ class RecoveryExpert:
             self.control.goal = point.copy()
             self.control.goal[2] = max(point[2], self.initial_grasp[2]+.13)
             self.control.phase = 'secure'
+            self.phase = 'control'
+        elif direct_align:
+            self.kind = 'direct_align_close'
+            self.control.phase = 'align'
             self.phase = 'control'
         else:
             self.kind = 'reopen_realign'

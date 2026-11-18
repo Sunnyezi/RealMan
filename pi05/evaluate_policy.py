@@ -27,6 +27,7 @@ def main() -> None:
         raise ValueError('Need action_dim=12')
     env = RGBEnv()
     rows = []
+    close_threshold = .25
     try:
         for i in range(a.count):
             seed = BASES[a.split]+a.start_index+i
@@ -60,14 +61,25 @@ def main() -> None:
                     break
             dest = a.output/f'episode_{i:06d}'
             np.savez_compressed(dest.with_suffix('.npz'), **{k:np.stack([f[k] for f in frames]) for k in frames[0]})
+            milestones = {
+                'close_command': any(f['command'][8] >= close_threshold for f in frames),
+                'two_hand_contacts': any(f['hand_contacts'] >= 2 for f in frames),
+                'lift_10cm': any(f['height'] >= .10 for f in frames),
+                'hold_2s': bool(info['is_success']),
+            }
             row = dict(seed=seed, inference_ms=timings, steps=e.steps, sim_seconds=e.steps*.05,
+                       milestones=milestones,
                        wall_seconds=time.monotonic()-started, **info)
             rows.append(row)
             write_json(dest.with_suffix('.json'), row)
             print(i, seed, info['is_success'], round(info['max_height'],4), flush=True)
+        milestone_counts = {key: sum(row['milestones'][key] for row in rows) for key in rows[0]['milestones']}
         write_json(a.output/'summary.json', dict(episodes=len(rows), successes=sum(r['is_success'] for r in rows),
                    success_rate=float(np.mean([r['is_success'] for r in rows])), split=a.split,
                    fingerprint=fingerprint(), task=PROMPT, simulation_only=True,
+                   milestone_counts=milestone_counts,
+                   milestone_rates={key: value/len(rows) for key, value in milestone_counts.items()},
+                   close_command_threshold_rad=close_threshold, close_command_actuator_index=8,
                    execution='pi05_policy_absolute12_no_takeover', uses_controller_tactile=False,
                    uses_controller_rgbd_estimate=False, uses_controller_object_truth=False,
                    step_traces_saved=True, execution_fingerprint=hashlib.sha256(Path(__file__).read_bytes()+fingerprint().encode()).hexdigest()))
