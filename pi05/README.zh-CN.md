@@ -141,7 +141,7 @@ cd pi05
 
 失败轨迹分析表明，原执行方式的掉落主要来自动作块切换处的跳变和过快的抬升。`evaluate_policy.py` 新增 `--ensemble-decay`（ACT 式时间集成，只平均模型自己的重叠预测）和 `--execute-steps`。29999 加时间集成后：验证区间 99/100，测试区间 200/200。
 
-`teacher.py`、`collect_teacher.py`、`collect_teacher_parallel.py` 和 `launch_teacher_v2.py` 提供了抬升更慢、带停顿、并含 DART 式执行噪声的新示教，以及从29999继续微调的流程（1200条/229,164帧，16,000步）。训练和自动验收的状态见 `pi05/runs/teacher_v2_20261119/job_status.json`。数据、教师扰动实验和全部数字见[纯策略记录](PURE_POLICY_20261119.zh-CN.md)。
+`teacher.py`、`collect_teacher.py`、`collect_teacher_parallel.py` 和 `launch_teacher_v2.py` 提供了抬升更慢、带停顿、并含 DART 式执行噪声的新示教，以及从29999继续微调的流程（1200条/229,164帧，16,000步）。在同一验证区间 130000–130099 上，新模型原方式 56/100、时间集成 90/100，均低于29999的78/100、99/100，因此不采用，最终方案仍是29999加时间集成。数据、教师扰动实验和全部数字见[纯策略记录](PURE_POLICY_20261119.zh-CN.md)。
 
 ```bash
 cd pi05 && MUJOCO_GL=egl ~/.conda/envs/realman-mujoco/bin/python test_teacher.py
