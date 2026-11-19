@@ -6,12 +6,14 @@ import argparse,json,time,math
 import numpy as np,mujoco,mujoco.viewer
 P=Path(__file__).parent
 def main():
- parser=argparse.ArgumentParser();parser.add_argument('--stream',type=Path,default=P/'live_state.npz');parser.add_argument('--envs',type=int,default=16);args=parser.parse_args()
+ parser=argparse.ArgumentParser();parser.add_argument('--stream',type=Path,default=P/'live_state.npz');parser.add_argument('--envs',type=int,default=16);parser.add_argument('--scene',type=Path,default=P/'scene.xml');args=parser.parse_args()
  stream=args.stream.resolve();n=args.envs
  if not 1<=n<=16:raise ValueError('Viewer supports 1-16 cells')
+ scene=args.scene.resolve()
+ if n>1 and scene!=(P/'scene.xml').resolve():raise ValueError('A custom --scene supports one cell only')
  from view_assets import ensure_model
- visual=ensure_model() if n>1 else P/'scene.xml'
- m=mujoco.MjModel.from_xml_path(str(visual if visual.exists() and n>1 else P/'scene.xml'));data=[mujoco.MjData(m) for _ in range(n)]
+ visual=ensure_model() if n>1 else scene
+ m=mujoco.MjModel.from_xml_path(str(visual if visual.exists() and n>1 else scene));data=[mujoco.MjData(m) for _ in range(n)]
  cfg=json.load(open(P/'config.json'));floor=m.geom('floor').id
  for i in range(m.ngeom):
   if i!=floor and m.geom_group[i]!=3:m.geom_group[i]=5
@@ -22,7 +24,7 @@ def main():
  draw=mujoco.MjvOption();draw.geomgroup[:]=0;draw.geomgroup[5]=1;draw.sitegroup[:]=0;draw.sitegroup[4]=1
  force=np.zeros((n,17));times=np.zeros(n);active=0;fresh=False;stage='waiting';last_stamp=0
  # The UI owns a separate immutable model/data; source pose updates never hold its lock.
- ui_model=mujoco.MjModel.from_xml_path(str(visual if visual.exists() and n>1 else P/'scene.xml'));ui_data=mujoco.MjData(ui_model)
+ ui_model=mujoco.MjModel.from_xml_path(str(visual if visual.exists() and n>1 else scene));ui_data=mujoco.MjData(ui_model)
  for i in range(ui_model.ngeom):
   if i!=floor and ui_model.geom_group[i]!=3:ui_model.geom_group[i]=5
  ui_model.geom_size[floor,:2]=20
@@ -39,12 +41,15 @@ def main():
      if stamp!=last_stamp:
       with np.load(stream) as state:
        q=np.atleast_2d(state['qpos']);v=np.atleast_2d(state['qvel']);u=np.atleast_2d(state['ctrl']);f=np.atleast_2d(state['touch_force']);t=np.atleast_1d(state['time']);active=min(n,len(q))
+       # Optional pick-and-place pad position (mocap), published by pi05/place_task.py.
+       pad=np.atleast_2d(state['place_target']) if 'place_target' in state and m.nmocap else None
        stage=str(state['stage']) if 'stage' in state else 'single warmstart environment'
        for i in range(active):
+        if pad is not None:data[i].mocap_pos[0]=pad[min(i,len(pad)-1)]
         data[i].qpos[:]=q[i];data[i].qvel[:]=v[i];data[i].ctrl[:]=u[i];data[i].time=float(t[i]);times[i]=t[i];force[i]=f[i];mujoco.mj_kinematics(m,data[i]);mujoco.mj_comPos(m,data[i]);mujoco.mj_camlight(m,data[i])
       # Native right-hand controls show ENV 00; playback remains policy-controlled.
       if active:
-       ui_data.qpos[:]=data[0].qpos;ui_data.qvel[:]=data[0].qvel;ui_data.ctrl[:]=data[0].ctrl;ui_data.time=data[0].time
+       ui_data.mocap_pos[:]=data[0].mocap_pos;ui_data.qpos[:]=data[0].qpos;ui_data.qvel[:]=data[0].qvel;ui_data.ctrl[:]=data[0].ctrl;ui_data.time=data[0].time
       last_stamp=stamp
      fresh=time.time()-stamp<2
     except (OSError,ValueError,KeyError):fresh=False

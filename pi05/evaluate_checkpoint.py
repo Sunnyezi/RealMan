@@ -28,9 +28,12 @@ def main() -> None:
     parser.add_argument("--port", type=int, default=8095)
     parser.add_argument("--execute-steps", type=int, default=2)
     parser.add_argument("--ensemble-decay", type=float)
+    parser.add_argument("--task", choices=["hold", "place"], default="hold")
     args = parser.parse_args()
     if args.execution != "policy" and (args.execute_steps != 2 or args.ensemble_decay is not None):
         parser.error("Execution settings apply to --execution policy only")
+    if args.task == "place" and args.execution != "policy":
+        parser.error("The place task is evaluated with --execution policy only")
     if args.count <= 0 or args.start_index < 0 or args.start_index+args.count > 90000 or not args.checkpoint.is_dir() or args.output.exists():
         parser.error("Need an existing checkpoint, positive count and unused output directory")
     with socket.socket() as probe:
@@ -48,11 +51,13 @@ def main() -> None:
             server = subprocess.Popen([
                 str(ROOT / "vendor/openpi/.venv/bin/python"), str(ROOT / "openpi_run.py"), "serve",
                 "--repo-id", args.repo_id, "--checkpoint", str(args.checkpoint.resolve()),
-                "--port", str(args.port)], cwd=ROOT.parent, env=environment,
+                "--port", str(args.port), "--task", args.task], cwd=ROOT.parent, env=environment,
                 stdout=server_log, stderr=subprocess.STDOUT)
             processes.append(server)
             viewer = subprocess.Popen(["bash", str(ROOT.parent / "grasp/grasp.sh"), "live", "--envs", "1",
-                                       "--stream", str(stream)], cwd=ROOT.parent,
+                                       "--stream", str(stream),
+                                       *(["--scene", str(ROOT / "place/scene.xml")] if args.task == "place" else [])],
+                                      cwd=ROOT.parent,
                                       stdout=viewer_log, stderr=subprocess.STDOUT)
             processes.append(viewer)
             for _ in range(900):
@@ -68,7 +73,7 @@ def main() -> None:
                 raise TimeoutError("Policy server did not become ready")
             extra = []
             if args.execution == "policy":
-                extra = ["--execute-steps", str(args.execute_steps)]
+                extra = ["--execute-steps", str(args.execute_steps), "--task", args.task]
                 if args.ensemble_decay is not None:
                     extra += ["--ensemble-decay", str(args.ensemble_decay)]
             with (output / "evaluation.log").open("w") as evaluation_log:
@@ -89,7 +94,7 @@ def main() -> None:
             failures = Counter()
             for row in rows:
                 if not row["is_success"]:
-                    reason = ("physics" if row.get("physics_failure") or row.get("warnings") else
+                    reason = row.get("failure") or ("physics" if row.get("physics_failure") or row.get("warnings") else
                               "ground_contact" if row["table_collision"] else
                               "dropped" if row["dropped"] else "timeout_or_incomplete")
                     failures[reason] += 1
@@ -101,7 +106,7 @@ def main() -> None:
             write_json(summary_path, summary)
             write_json(output / "checkpoint.json", {"checkpoint": str(args.checkpoint.resolve()),
                        "repo_id": args.repo_id, "split": args.split, "episodes": args.count,
-                       "execution": args.execution, "start_index": args.start_index,
+                       "execution": args.execution, "start_index": args.start_index, "task": args.task,
                        "execute_steps": args.execute_steps, "ensemble_decay": args.ensemble_decay})
         finally:
             for process in reversed(processes):

@@ -12,6 +12,18 @@ ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 
 
+TASK_LABELS = {"hold": "pick up and hold; not pick and place",
+               "place": "pick up the blue cube and place it on the green square"}
+
+
+def task_fingerprint(task: str) -> str:
+    if task == "place":
+        from place_task import place_fingerprint
+        return place_fingerprint()
+    from pipeline import fingerprint
+    return fingerprint()
+
+
 def load_script(name: str):
     spec = importlib.util.spec_from_file_location(name, ROOT / "vendor/openpi/scripts" / f"{name}.py")
     module = importlib.util.module_from_spec(spec)
@@ -31,6 +43,7 @@ def main() -> None:
     parser.add_argument("--init-checkpoint", type=Path)
     parser.add_argument("--peak-lr", type=float, default=2e-5)
     parser.add_argument("--port", type=int, default=8000)
+    parser.add_argument("--task", choices=["hold", "place"], default="hold")
     args = parser.parse_args()
     from adapter import training_config
 
@@ -40,6 +53,8 @@ def main() -> None:
         assets_base_dir=str(ROOT / "outputs/openpi_assets"),
         checkpoint_base_dir=str(ROOT / "checkpoints"),
     )
+    if args.task == "place":
+        cfg = replace(cfg, policy_metadata=cfg.policy_metadata | {"task": TASK_LABELS["place"], "horizon_steps": 400})
     if args.init_checkpoint:
         from openpi.training import weight_loaders
         if args.resume or not (args.init_checkpoint / "params").is_dir():
@@ -64,7 +79,7 @@ def main() -> None:
 
         conversion = ROOT / "outputs" / (args.repo_id.replace("/", "_") + "_conversion.json")
         dataset = json.loads(conversion.read_text())
-        if dataset["fingerprint"] != fingerprint() or dataset["split"] != "train":
+        if dataset["fingerprint"] != task_fingerprint(args.task) or dataset["split"] != "train":
             raise RuntimeError("Training requires train data from the current simulation version")
         stream = ROOT / "runs" / args.experiment / "live_state.npz"
         status = stream.with_name("grid_status.json")
@@ -77,13 +92,13 @@ def main() -> None:
             raise RuntimeError("CUDA GPU required for pi0.5 training")
         write_json(stream.with_name("training_manifest.json"), {
             "repo_id": args.repo_id, "experiment": args.experiment,
-            "simulation_fingerprint": fingerprint(),
+            "simulation_fingerprint": task_fingerprint(args.task),
             "adapter_sha256": hashlib.sha256((ROOT / "adapter.py").read_bytes()).hexdigest(),
             "action_dim": 12, "steps": args.steps, "batch_size": args.batch_size,
             "base_weights": str(args.init_checkpoint.resolve()/"params") if args.init_checkpoint else "gs://openpi-assets/checkpoints/pi05_base/params",
             "warm_started": args.init_checkpoint is not None, "peak_lr": args.peak_lr,
             "runner_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
-            "task": "pick up and hold; not pick and place", "simulation_only": True,
+            "task": TASK_LABELS[args.task], "task_name": args.task, "simulation_only": True,
         })
         load_script("train").main(cfg)
     elif args.mode == "check-data":
@@ -119,7 +134,8 @@ def main() -> None:
 
         experiment = Path(args.checkpoint).resolve().parent.name
         manifest = json.loads((ROOT / "runs" / experiment / "training_manifest.json").read_text())
-        if (manifest["repo_id"] != args.repo_id or manifest["simulation_fingerprint"] != fingerprint()
+        if (manifest["repo_id"] != args.repo_id or manifest["simulation_fingerprint"] != task_fingerprint(args.task)
+                or manifest.get("task_name", "hold") != args.task
                 or manifest["adapter_sha256"] != hashlib.sha256((ROOT / "adapter.py").read_bytes()).hexdigest()):
             raise RuntimeError("Checkpoint data, simulation, or adapter differs from the training manifest")
 
@@ -128,6 +144,8 @@ def main() -> None:
         # client's websocket keepalive timeout.  The dummy observation is discarded.
         import numpy as np
         from pipeline import PROMPT
+        if args.task == "place":
+            from place_task import PLACE_PROMPT as PROMPT
         blank = np.zeros((224, 224, 3), np.uint8)
         policy.infer({"observation/image": blank, "observation/wrist_image": blank,
                       "observation/state": np.zeros(12, np.float32), "prompt": PROMPT})

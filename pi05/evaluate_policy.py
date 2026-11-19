@@ -19,6 +19,7 @@ def main() -> None:
     p.add_argument('--port', type=int, default=8095)
     p.add_argument('--stream', type=Path)
     p.add_argument('--execute-steps', type=int, default=2, help='actions executed per model query')
+    p.add_argument('--task', choices=['hold', 'place'], default='hold')
     p.add_argument('--ensemble-decay', type=float, default=None,
                    help='ACT-style temporal ensembling of overlapping model chunks; weight exp(-decay*i), i=0 oldest')
     a = p.parse_args()
@@ -28,7 +29,11 @@ def main() -> None:
         p.error('Invalid execution settings')
     a.output.mkdir(parents=True, exist_ok=False)
     # Build the scene before connecting: slow scene loading must not stall websocket keepalive pings.
-    env = RGBEnv()
+    if a.task == 'place':
+        from place_task import PLACE_PROMPT as prompt, PlaceEnv as Env, place_fingerprint as task_fingerprint
+    else:
+        prompt, Env, task_fingerprint = PROMPT, RGBEnv, fingerprint
+    env = Env()
     policy = WebsocketClientPolicy(port=a.port)
     if policy.get_server_metadata().get('action_dim') != 12:
         raise ValueError('Need action_dim=12')
@@ -80,23 +85,27 @@ def main() -> None:
                 'lift_10cm': any(f['height'] >= .10 for f in frames),
                 'hold_2s': bool(info['is_success']),
             }
+            extra = {}
+            if a.task == 'place':
+                milestones = {'close_command': milestones['close_command'], **info['place_milestones']}
+                extra = {'failure': Env.failure(info)}
             row = dict(seed=seed, inference_ms=timings, steps=e.steps, sim_seconds=e.steps*.05,
                        milestones=milestones,
-                       wall_seconds=time.monotonic()-started, **info)
+                       wall_seconds=time.monotonic()-started, **extra, **info)
             rows.append(row)
             write_json(dest.with_suffix('.json'), row)
             print(i, seed, info['is_success'], round(info['max_height'],4), flush=True)
         milestone_counts = {key: sum(row['milestones'][key] for row in rows) for key in rows[0]['milestones']}
         write_json(a.output/'summary.json', dict(episodes=len(rows), successes=sum(r['is_success'] for r in rows),
                    success_rate=float(np.mean([r['is_success'] for r in rows])), split=a.split,
-                   fingerprint=fingerprint(), task=PROMPT, simulation_only=True,
+                   fingerprint=task_fingerprint(), task=prompt, task_name=a.task, simulation_only=True,
                    milestone_counts=milestone_counts,
                    milestone_rates={key: value/len(rows) for key, value in milestone_counts.items()},
                    close_command_threshold_rad=close_threshold, close_command_actuator_index=8,
                    execution='pi05_policy_absolute12_no_takeover', execute_steps=a.execute_steps,
                    ensemble_decay=a.ensemble_decay, uses_controller_tactile=False,
                    uses_controller_rgbd_estimate=False, uses_controller_object_truth=False,
-                   step_traces_saved=True, execution_fingerprint=hashlib.sha256(Path(__file__).read_bytes()+fingerprint().encode()).hexdigest()))
+                   step_traces_saved=True, execution_fingerprint=hashlib.sha256(Path(__file__).read_bytes()+task_fingerprint().encode()).hexdigest()))
     finally:
         env.close()
 

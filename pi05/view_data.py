@@ -14,11 +14,16 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--raw", type=Path, required=True)
     parser.add_argument("--stream", type=Path, required=True)
+    parser.add_argument("--task", choices=["hold", "place"], default="hold")
     args = parser.parse_args()
     episodes = sorted(args.raw.glob("episode_*"))
     if not episodes:
         parser.error("No recorded episodes")
-    env = RGBEnv()
+    if args.task == "place":
+        from place_task import PlaceEnv
+        env = PlaceEnv()
+    else:
+        env = RGBEnv()
     try:
         while True:
             for path in episodes:
