@@ -124,6 +124,13 @@ def main() -> None:
             raise RuntimeError("Checkpoint data, simulation, or adapter differs from the training manifest")
 
         policy = policy_config.create_trained_policy(cfg, args.checkpoint)
+        # Compile once before listening: a first-call JIT compile on a shared GPU can outlast the
+        # client's websocket keepalive timeout.  The dummy observation is discarded.
+        import numpy as np
+        from pipeline import PROMPT
+        blank = np.zeros((224, 224, 3), np.uint8)
+        policy.infer({"observation/image": blank, "observation/wrist_image": blank,
+                      "observation/state": np.zeros(12, np.float32), "prompt": PROMPT})
         websocket_policy_server.WebsocketPolicyServer(policy, host="127.0.0.1", port=args.port, metadata=cfg.policy_metadata).serve_forever()
 
 

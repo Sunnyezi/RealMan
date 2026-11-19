@@ -17,6 +17,8 @@
 
 2026-11-18，当前混合控制器在固定方块的100回合验证中成功100/100，12项测试通过；模型权重仍为原检查点29999。详见实施记录中的v4验收。
 
+2026-11-19，**纯 π0.5 策略**（无任何控制器接管）采用时间集成执行后，检查点29999在 test 种子 200000–200199 上成功200/200，Wilson 95% 区间 98.1%–100%；原“执行2步”方式在验证区间 130000–130099 上为 78/100。推荐使用 `evaluate_checkpoint.py --execution policy --ensemble-decay 0.01`。详见[纯策略记录](PURE_POLICY_20261119.zh-CN.md)。
+
 ## 环境与数据
 
 以下命令在仓库根目录执行，仿真沿用已有 Conda 环境；OpenPI 单独使用 `pi05/vendor/openpi/.venv`，不升级现有 PPO 环境。
@@ -132,3 +134,15 @@ cd pi05
 按计划直接采集模型访问状态下的成功恢复后缀，混合原示教，从29999继续微调12000步。使用`launch_recovery.py`持久执行采集、数据校验、warm-start试跑、训练和新模型完整任务验收；不重跑旧模型对照。具体数据隔离、原归一化保留、VNC和验收方式见[纠正训练记录](RECOVERY_TRAINING.zh-CN.md)。
 
 2026-11-18 02:09 CST，纠正示教混合数据400条/53196帧转换和warm-start实跑通过，`recovery_20261118`正式12000步微调已启动。训练进行中，最终模型表现以该任务后续的无接管完整策略验收为准。
+
+两轮纠正微调的纯策略验收分别为 31/100（`recovery_20261118/11999`）和 66/100（`grasp_closure_v2_20261118/11999`），均低于基线。
+
+## 纯策略执行与新示教（2026-11-19）
+
+失败轨迹分析表明，原执行方式的掉落主要来自动作块切换处的跳变和过快的抬升。`evaluate_policy.py` 新增 `--ensemble-decay`（ACT 式时间集成，只平均模型自己的重叠预测）和 `--execute-steps`。29999 加时间集成后：验证区间 99/100，测试区间 200/200。
+
+`teacher.py`、`collect_teacher.py`、`collect_teacher_parallel.py` 和 `launch_teacher_v2.py` 提供了抬升更慢、带停顿、并含 DART 式执行噪声的新示教，以及从29999继续微调的流程（1200条/229,164帧，16,000步）。训练和自动验收的状态见 `pi05/runs/teacher_v2_20261119/job_status.json`。数据、教师扰动实验和全部数字见[纯策略记录](PURE_POLICY_20261119.zh-CN.md)。
+
+```bash
+cd pi05 && MUJOCO_GL=egl ~/.conda/envs/realman-mujoco/bin/python test_teacher.py
+```

@@ -26,7 +26,11 @@ def main() -> None:
     parser.add_argument("--execution", choices=["hybrid", "policy"], default="hybrid")
     parser.add_argument("--start-index", type=int, default=0)
     parser.add_argument("--port", type=int, default=8095)
+    parser.add_argument("--execute-steps", type=int, default=2)
+    parser.add_argument("--ensemble-decay", type=float)
     args = parser.parse_args()
+    if args.execution != "policy" and (args.execute_steps != 2 or args.ensemble_decay is not None):
+        parser.error("Execution settings apply to --execution policy only")
     if args.count <= 0 or args.start_index < 0 or args.start_index+args.count > 90000 or not args.checkpoint.is_dir() or args.output.exists():
         parser.error("Need an existing checkpoint, positive count and unused output directory")
     with socket.socket() as probe:
@@ -35,7 +39,8 @@ def main() -> None:
     output = args.output.resolve()
     stream = output / "live_state.npz"
     environment = os.environ | {"OMP_NUM_THREADS": "1", "OPENBLAS_NUM_THREADS": "1",
-                               "PYTHONUNBUFFERED": "1", "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.30"}
+                               "PYTHONUNBUFFERED": "1",
+                               "XLA_PYTHON_CLIENT_MEM_FRACTION": os.environ.get("PI05_SERVE_MEM_FRACTION", "0.30")}
     environment.pop("JAX_PLATFORMS", None)
     processes = []
     with (output / "server.log").open("w") as server_log, (output / "viewer.log").open("w") as viewer_log:
@@ -50,7 +55,7 @@ def main() -> None:
                                        "--stream", str(stream)], cwd=ROOT.parent,
                                       stdout=viewer_log, stderr=subprocess.STDOUT)
             processes.append(viewer)
-            for _ in range(240):
+            for _ in range(900):
                 if server.poll() is not None or viewer.poll() is not None:
                     raise RuntimeError("Server or viewer stopped; inspect logs")
                 try:
@@ -61,12 +66,17 @@ def main() -> None:
                     time.sleep(1)
             else:
                 raise TimeoutError("Policy server did not become ready")
+            extra = []
+            if args.execution == "policy":
+                extra = ["--execute-steps", str(args.execute_steps)]
+                if args.ensemble_decay is not None:
+                    extra += ["--ensemble-decay", str(args.ensemble_decay)]
             with (output / "evaluation.log").open("w") as evaluation_log:
                 started = time.monotonic()
                 subprocess.run(["bash", str(ROOT / ("evaluate_policy.sh" if args.execution == "policy" else "evaluate.sh")), "--split", args.split,
                                 "--start-index", str(args.start_index),
                                 "--count", str(args.count), "--port", str(args.port),
-                                "--output", str(output / "results"), "--stream", str(stream)],
+                                "--output", str(output / "results"), "--stream", str(stream), *extra],
                                cwd=ROOT.parent, env=environment, stdout=evaluation_log,
                                stderr=subprocess.STDOUT, check=True)
             summary_path = output / "results/summary.json"
@@ -91,7 +101,8 @@ def main() -> None:
             write_json(summary_path, summary)
             write_json(output / "checkpoint.json", {"checkpoint": str(args.checkpoint.resolve()),
                        "repo_id": args.repo_id, "split": args.split, "episodes": args.count,
-                       "execution": args.execution, "start_index": args.start_index})
+                       "execution": args.execution, "start_index": args.start_index,
+                       "execute_steps": args.execute_steps, "ensemble_decay": args.ensemble_decay})
         finally:
             for process in reversed(processes):
                 if process.poll() is None:

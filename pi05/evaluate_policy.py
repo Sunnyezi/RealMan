@@ -18,14 +18,20 @@ def main() -> None:
     p.add_argument('--start-index', type=int, default=10000)
     p.add_argument('--port', type=int, default=8095)
     p.add_argument('--stream', type=Path)
+    p.add_argument('--execute-steps', type=int, default=2, help='actions executed per model query')
+    p.add_argument('--ensemble-decay', type=float, default=None,
+                   help='ACT-style temporal ensembling of overlapping model chunks; weight exp(-decay*i), i=0 oldest')
     a = p.parse_args()
     if a.count<=0 or a.start_index<0 or a.start_index+a.count>90000:
         p.error('Invalid evaluation seed range')
+    if not 1 <= a.execute_steps <= 10 or (a.ensemble_decay is not None and a.ensemble_decay < 0):
+        p.error('Invalid execution settings')
     a.output.mkdir(parents=True, exist_ok=False)
+    # Build the scene before connecting: slow scene loading must not stall websocket keepalive pings.
+    env = RGBEnv()
     policy = WebsocketClientPolicy(port=a.port)
     if policy.get_server_metadata().get('action_dim') != 12:
         raise ValueError('Need action_dim=12')
-    env = RGBEnv()
     rows = []
     close_threshold = .25
     try:
@@ -33,18 +39,25 @@ def main() -> None:
             seed = BASES[a.split]+a.start_index+i
             env.reset(seed)
             e = env.base
-            frames, timings = [], []
+            frames, timings, history = [], [], []
             started = time.monotonic()
             while True:
                 tick = time.perf_counter()
                 chunk = np.asarray(policy.infer(env.observation())['actions'])
                 timings.append((time.perf_counter()-tick)*1000)
-                if chunk.ndim!=2 or chunk.shape[1]!=12 or len(chunk)<2 or not np.isfinite(chunk).all():
+                if chunk.ndim!=2 or chunk.shape[1]!=12 or len(chunk)<a.execute_steps or not np.isfinite(chunk).all():
                     raise ValueError('Invalid model action chunk')
-                for raw in chunk[:2]:
+                history = [(t0, c) for t0, c in history if t0+len(c) > e.steps] + [(e.steps, chunk)]
+                for k in range(a.execute_steps):
+                    raw = chunk[k]
+                    if a.ensemble_decay is not None:
+                        # Average every stored model prediction for this control step, oldest first.
+                        preds = [c[e.steps-t0] for t0, c in history if 0 <= e.steps-t0 < len(c)]
+                        weights = np.exp(-a.ensemble_decay*np.arange(len(preds)))
+                        raw = np.average(preds, axis=0, weights=weights)
                     command = np.clip(raw, *e.m.actuator_ctrlrange[env.ids].T)
                     frame = dict(timestamp=e.steps*.05, state=e.d.qpos[env.qids].copy(),
-                                 raw_action=raw.copy(), command=command.copy(), palm_position=e.d.xpos[e.bid].copy(),
+                                 model_action=chunk[k].copy(), raw_action=raw.copy(), command=command.copy(), palm_position=e.d.xpos[e.bid].copy(),
                                  tactile=e.touch_force.copy())
                     done, info = env.step(command)
                     frame.update(height=info['height'], hold_seconds=info['hold_seconds'],
@@ -80,7 +93,8 @@ def main() -> None:
                    milestone_counts=milestone_counts,
                    milestone_rates={key: value/len(rows) for key, value in milestone_counts.items()},
                    close_command_threshold_rad=close_threshold, close_command_actuator_index=8,
-                   execution='pi05_policy_absolute12_no_takeover', uses_controller_tactile=False,
+                   execution='pi05_policy_absolute12_no_takeover', execute_steps=a.execute_steps,
+                   ensemble_decay=a.ensemble_decay, uses_controller_tactile=False,
                    uses_controller_rgbd_estimate=False, uses_controller_object_truth=False,
                    step_traces_saved=True, execution_fingerprint=hashlib.sha256(Path(__file__).read_bytes()+fingerprint().encode()).hexdigest()))
     finally:
