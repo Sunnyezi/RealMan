@@ -19,6 +19,8 @@
 
 2026-11-19，**纯 π0.5 策略**（无任何控制器接管）采用时间集成执行后，检查点29999在 test 种子 200000–200199 上成功200/200，Wilson 95% 区间 98.1%–100%；原“执行2步”方式在验证区间 130000–130099 上为 78/100。推荐使用 `evaluate_checkpoint.py --execution policy --ensemble-decay 0.01`。详见[纯策略记录](PURE_POLICY_20261119.zh-CN.md)。
 
+2026-11-20，新增独立的**搬运放置**任务（`--task place`）：抓起蓝色方块，放到随机位置的绿色目标区，松手并抬离。从 29999 热启动微调 30,000 步得到 `place_20261119/29999`；纯策略加时间集成在 test 种子 210000–210199 上成功 182/200，Wilson 95% 区间 86.2%–94.2%。抓起保持任务的判据、指纹和结果不变。详见[搬运放置记录](PLACE_TASK_20261120.zh-CN.md)。
+
 ## 环境与数据
 
 以下命令在仓库根目录执行，仿真沿用已有 Conda 环境；OpenPI 单独使用 `pi05/vendor/openpi/.venv`，不升级现有 PPO 环境。
@@ -125,6 +127,7 @@ bash pi05/evaluate.sh --split validation --count 30 \
 ```bash
 cd pi05
 ~/.conda/envs/realman-mujoco/bin/python -m unittest -v test_contracts test_stabilizer
+MUJOCO_GL=egl ~/.conda/envs/realman-mujoco/bin/python test_place.py
 ```
 
 训练输入、旧 7 维动作拒绝、12 维输出解填充、非有限值拒绝由契约测试覆盖；稳定器测试覆盖慢策略接近超时、速率限制、接触确认、阶段切换、夹紧未确认超时与静态跟踪误差回归；真实接触与时序一致性由教师检查及绝对动作回放验证。各阶段实测结果见 `IMPLEMENTATION_REPORT.zh-CN.md`。
@@ -146,3 +149,23 @@ cd pi05
 ```bash
 cd pi05 && MUJOCO_GL=egl ~/.conda/envs/realman-mujoco/bin/python test_teacher.py
 ```
+
+## 搬运放置（2026-11-20）
+
+`place_task.py` 在原场景上加一块不参与碰撞的绿色目标垫（`place/scene.xml`），定义放置判据和失败分类；`place_teacher.py` 是只按可观测进度切换阶段的脚本老师；`collect_place.py` 负责门槛、并行采集和重放审核；`launch_place.py` 在 tmux 中依次完成转换、试跑、VNC 可见训练和验证评估。`openpi_run.py`、`evaluate_policy.py`、`evaluate_checkpoint.py`、`view_data.py` 新增 `--task {hold,place}`，`train_visible.sh` 读 `PI05_TASK`，默认都是 `hold`。
+
+| 执行方式 | 种子 | 成功 | Wilson 95% 区间 |
+| --- | --- | ---: | --- |
+| 原方式 | validation 140000–140099 | 40/100 | 31.0%–49.8% |
+| 时间集成 | validation 140000–140099 | 93/100 | 86.3%–96.6% |
+| 时间集成 | test 210000–210199 | 182/200 | 86.2%–94.2% |
+
+```bash
+~/.conda/envs/realman-mujoco/bin/python pi05/evaluate_checkpoint.py --task place \
+  --execution policy --ensemble-decay 0.01 \
+  --repo-id local/rm65_rh56_pi05_place_20261119 \
+  --checkpoint pi05/checkpoints/pi05_realman_absolute12/place_20261119/29999 \
+  --output pi05/runs/<new_dir> --count 100 --start-index 50000
+```
+
+只有一种物体和一个目标区，提示词固定；剩余失败主要是末段松手和撤离太慢。任务定义、示教、数据、训练和失败分析见[搬运放置记录](PLACE_TASK_20261120.zh-CN.md)。
